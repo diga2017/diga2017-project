@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-const urlRegionLevels = 'http://melatupa.azurewebsites.net/regionLevels'
-
 function getRegionLevels() {
     return new Promise((resolve, reject) => {
-        axios.get(urlRegionLevels)
+        axios.get('http://melatupa.azurewebsites.net/regionLevels')
             .then(results => {
                 console.log(results);
                 const regionLevels = results.data.map(element => {
@@ -53,4 +51,4 @@ function getScenarioCollections(scenarioCollectionsId, regionId) {
     });
 }
 
-export default { getRegionLevels };
+export default { getRegionLevels, getRegions, getScenarioCollections };
