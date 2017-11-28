@@ -1,4 +1,6 @@
 import ScenarioCollectionsData from './ScenarioCollectionsData';
+//THESE ARE PLACE HOLDER DATA
+
 // User chooses one of the two regionLevels which gives us an ID to use when getting regions
 const regionLevels = [
   {

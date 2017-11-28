@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+/* 
+@return promise returns a new promise that has the region levels data
+ */
 function getRegionLevels() {
     return new Promise((resolve, reject) => {
         axios.get('http://melatupa.azurewebsites.net/regionLevels')
@@ -16,7 +19,10 @@ function getRegionLevels() {
             })
     });
 }
-
+/* 
+@param  regionId    id used to find regions from current region level (1 or 2)
+@return promise     returns a new promise that has the regions data for the current region level chosen
+ */
 function getRegions(regionId) {
     return new Promise((resolve, reject) => {
         axios.get('http://melatupa.azurewebsites.net/regionLevels/' + regionId + '/regions')
@@ -33,7 +39,11 @@ function getRegions(regionId) {
             })
     });
 }
-
+/* 
+@param  scenarioCollectionsId    id used to find different scenario collections in a chosen region
+@param  regionId                 id used to identify the region for which scenarios should be shown
+@return promise                 returns a new promise that has the scenario collections data for the chosen scenario in the chosen region
+ */
 function getScenarioCollections(scenarioCollectionsId, regionId) {
     return new Promise((resolve, reject) => {
         axios.get('http://melatupa.azurewebsites.net/scenarioCollection/' + scenarioCollectionsId + '/region/' + regionId)
