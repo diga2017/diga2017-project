@@ -3,11 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class RegionContainer extends Component {
 
-    componentDidMount() {
-        console.log(("Prop: ") + this.props);
-        console.log("Child: " + this.props.children);
-    }
-
     render() {
         const { id, name, shortName, order } = this.props;
         return (

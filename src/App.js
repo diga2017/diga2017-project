@@ -22,15 +22,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    DataHolder.getRegionLevels().then(result => {
+    Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
     });
 
-    DataHolder.getRegions().then(result => {
+    Data.getRegions(1).then(result => {
       this.setState({ regions: result });
     });
 
-    DataHolder.getScenarioCollections().then(result => {
+    Data.getScenarioCollections(6, 33).then(result => {
       this.setState({ scenarioCollections: result });
     });
   }
