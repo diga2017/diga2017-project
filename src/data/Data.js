@@ -1,11 +1,12 @@
 import axios from 'axios';
+import Config from '../Config';
 
 /* 
 @return promise returns a new promise that has the region levels data
  */
 function getRegionLevels() {
     return new Promise((resolve, reject) => {
-        axios.get('http://melatupa.azurewebsites.net/regionLevels')
+        axios.get(Config.urlBase + '/regionLevels/')
             .then(results => {
                 console.log(results);
                 const regionLevels = results.data.map(element => {
@@ -23,9 +24,9 @@ function getRegionLevels() {
 @param  regionId    id used to find regions from current region level (1 or 2)
 @return promise     returns a new promise that has the regions data for the current region level chosen
  */
-function getRegions(regionId) {
+function getRegions(regionLevelId) {
     return new Promise((resolve, reject) => {
-        axios.get('http://melatupa.azurewebsites.net/regionLevels/' + regionId + '/regions')
+        axios.get(Config.urlBase + '/regionLevels/' + regionLevelId + '/regions/')
             .then(results => {
                 console.log(results);
                 const regions = results.data.map(element => {
@@ -46,7 +47,7 @@ function getRegions(regionId) {
  */
 function getScenarioCollections(scenarioCollectionsId, regionId) {
     return new Promise((resolve, reject) => {
-        axios.get('http://melatupa.azurewebsites.net/scenarioCollection/' + scenarioCollectionsId + '/region/' + regionId)
+        axios.get(Config.urlBase + '/scenarioCollection/' + scenarioCollectionsId + '/region/' + regionId)
             .then(results => {
                 console.log(results);
                 const scenarioCollections = results.data.map(element => {
