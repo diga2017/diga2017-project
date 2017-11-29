@@ -15,27 +15,31 @@ class App extends Component {
     super(props);
 
     this.state = {
-      regionLevels: [],
-      regions: [],
+      regionLevels: [],         // includes: name, description, id and order
+      regions: [],              // includes: id, name, shortName, order and scenarioCollections: id, name, description
       scenarioCollections: [],
+      chosenRegionCollections: [],
 
-      regionLevelID: 1,
-      regionID: 24,
-      scenarioID: 5
+      regionLevelId: 1,
+      regionId: 33,
+      scenarioId: 6
     };
   }
 
   componentDidMount() {
     Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
+      console.log("regionLevels: " + this.state.regionLevels);
     });
 
-    Data.getRegions(this.state.regionLevelID).then(result => {
+    Data.getRegions(this.state.regionLevelId).then(result => {
       this.setState({ regions: result });
+      console.log("regions: " + this.state.regions);
     });
 
-    Data.getScenarioCollections(this.state.scenarioID, this.state.regionID).then(result => {
+    Data.getScenarioCollections(this.state.scenarioId, this.state.regionId).then(result => {
       this.setState({ scenarioCollections: result });
+      console.log("scenarioCollections: " + this.state.scenarioCollections);
     });
   }
 
@@ -52,7 +56,7 @@ class App extends Component {
               order={element.order} />)
           }
         </div>
-        <p>REGIONS (ID: { this.state.regionLevelID })</p>
+        <p>REGIONS (ID: {this.state.regionLevelId})</p>
         <div>
           {
             this.state.regions.map(element => <RegionContainer key={element.id}
@@ -60,17 +64,18 @@ class App extends Component {
               name={element.name}
               shortName={element.shortName}
               order={element.order}
+              scenarioCollections={element.scenarioCollections}
             />)
           }
         </div>
-        <p>SCENARIOCOLLECTIONS (regionID: { this.state.regionID } / scenarioCollectionsID: { this.state.scenarioID })</p>
+        <p>SCENARIOCOLLECTIONS (regionID: {this.state.regionId} / scenarioCollectionsID: {this.state.scenarioId})</p>
         <div>
           {
             this.state.scenarioCollections.map(element => <ScenarioCollectionsContainer key={element.id}
               id={element.id}
               name={element.name}
               description={element.description}
-              order={element.order} />)
+              scenarios={element.scenarios} />)
           }
         </div>
       </div >

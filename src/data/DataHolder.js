@@ -98,19 +98,42 @@ function getRegionLevels() {
   });
 }
 
-function getRegions() {
+function getRegions(regionLevelId) {
   return new Promise((resolve, reject) => {
     resolve(regions);
   });
 }
 
-function getScenarioCollections() {
-
+function getScenarioCollections(scenarioCollectionsId, regionId) {
   scenarioCollections = ScenarioCollectionsData.getScenarioCollections();
 
   return new Promise((resolve, reject) => {
     resolve(scenarioCollections);
   });
 }
+/*
+function getRegionCollections(regionsx, regionId) {
+  let collections = [];
+  if (regions != null) {
+    regions.forEach(region => {
+      console.log(region.id);
+      if (region.id === regionId) {
+        console.log(region.scenarioCollections);
+        region.scenarioCollections.forEach(scenarioCollection => {
+          console.log(scenarioCollection);
+          collections.push(scenarioCollection);
+        });
+      }
+    });
+  } else {
+    console.log("Error: regions were not found");
+  }
+
+  console.log(collections);
+  return new Promise((resolve, reject) => {
+    resolve(collections);
+  });
+}
+*/
 
 export default { getRegionLevels, getRegions, getScenarioCollections };
