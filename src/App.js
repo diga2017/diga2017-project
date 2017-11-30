@@ -9,6 +9,7 @@ import RegionLevelContainer from './components/RegionLevelContainer';
 import RegionContainer from './components/RegionContainer';
 import ScenarioCollectionsContainer from './components/ScenarioCollectionsContainer';
 import NavBar from './components/NavBar';
+import BackGround from './components/BackGround';
 // Placeholder data (will be removed after backend requests are working)
 import DataHolder from './data/DataHolder';
 
@@ -44,9 +45,11 @@ class App extends Component {
 
   render() {
     return (
-      
+
+      <div>
         <NavBar />
-      
+        <BackGround />
+      </div>
     );
   }
 }
