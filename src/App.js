@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Config from './Config';
 // Backend datagetter. Currently not functioning
 import Data from './data/Data';
 // Placeholder containers
@@ -15,6 +17,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      language: "fi",
       regionLevels: [],         // includes: name, description, id and order
       regions: [],              // includes: id, name, shortName, order and scenarioCollections: id, name, description
       scenarioCollections: [],
@@ -24,9 +27,27 @@ class App extends Component {
       regionId: 33,
       scenarioId: 6
     };
+
+    this.toggleLanguage = this.toggleLanguage.bind(this);
+    this.getAllData = this.getAllData.bind(this);
   }
 
   componentDidMount() {
+    this.getAllData();
+  }
+
+  toggleLanguage() {
+    if (this.state.language === "fi") {
+      this.setState({ language: "en" });
+    } else {
+      this.setState({ language: "fi" });
+    }
+    this.getAllData();
+  }
+  
+  getAllData() {
+    Data.setUserLanguage(this.state.language);
+
     Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
       console.log("regionLevels: " + this.state.regionLevels);
@@ -46,6 +67,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <button type="button" className="btn btn-primary" onClick={ this.toggleLanguage }>{this.state.language}</button>
+      <a type="button" className="btn btn-primary" href={ Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi) }>Send feedback</a>
         <p>REGION LEVELS</p>
         <div>
           {

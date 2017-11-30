@@ -1,6 +1,11 @@
 import axios from 'axios';
 import Config from '../Config';
 
+function setUserLanguage(language){
+    console.log("setUserLanguage: " + language);
+    axios.defaults.headers.get['Accept-Language'] = language;
+}
+
 /* 
 @return promise returns a new promise that has the region levels data
  */
@@ -62,4 +67,4 @@ function getScenarioCollections(scenarioCollectionsId, regionId) {
     });
 }
 
-export default { getRegionLevels, getRegions, getScenarioCollections };
+export default { setUserLanguage, getRegionLevels, getRegions, getScenarioCollections };

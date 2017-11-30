@@ -1,3 +1,6 @@
 {
-  "urlBase": "http://melatupa.azurewebsites.net/"
+  "urlBase": "http://melatupa.azurewebsites.net/",
+  "urlEmail": "mailto:metsamittari@luke.fi?subject=",
+  "emailSubjectEn": "Forest Indicator feedback",
+  "emailSubjectFi": "Mets%C3%A4mittari palaute"
 }
