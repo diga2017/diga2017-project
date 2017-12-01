@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Config from './Config';
+import localizedStrings from './components/LocalizedStrings'
 // Backend datagetter. Currently not functioning
 import Data from './data/Data';
 // Placeholder containers
@@ -19,7 +20,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      language: "en",
       regionLevels: [],         // includes: name, description, id and order
       regions: [],              // includes: id, name, shortName, order and scenarioCollections: id, name, description
       scenarioCollections: [],
@@ -38,16 +38,16 @@ class App extends Component {
   }
 
   toggleLanguage() {
-    if (this.state.language === "fi") {
-      this.setState({ language: "en" });
+    if (localizedStrings.getLanguage() == "fi") {
+      localizedStrings.setLanguage("en");
     } else {
-      this.setState({ language: "fi" });
+      localizedStrings.setLanguage("fi");
     }
     this.getAllData();
   }
 
   getAllData() {
-    Data.setUserLanguage(this.state.language);
+    Data.setUserLanguage(localizedStrings.getLanguage());
 
     Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
@@ -68,9 +68,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{this.state.language}</button>
+        <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{ localizedStrings.languageOnSwitch }</button>
         <a type="button" className="btn btn-primary" href={Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi)}>Send feedback</a>
-        <p>REGION LEVELS</p>
+        <p> { localizedStrings.titleRegionLevel } </p>
         <div>
           {
             this.state.regionLevels.map(element => <RegionLevelContainer key={element.id}
@@ -80,7 +80,7 @@ class App extends Component {
               order={element.order} />)
           }
         </div>
-        <p>REGIONS (ID: {this.state.regionLevelId})</p>
+        <p>{ localizedStrings.titleRegion } (ID: {this.state.regionLevelId})</p>
         <div>
           {
             this.state.regions.map(element => <RegionContainer key={element.id}
@@ -92,7 +92,7 @@ class App extends Component {
             />)
           }
         </div>
-        <p>SCENARIOCOLLECTIONS (regionID: {this.state.regionId} / scenarioCollectionsID: {this.state.scenarioId})</p>
+        <p>{ localizedStrings.titleScenarioCollection } (regionID: {this.state.regionId} / scenarioCollectionsID: {this.state.scenarioId})</p>
         <div>
           {
             this.state.scenarioCollections.map(element => <ScenarioCollectionsContainer key={element.id}

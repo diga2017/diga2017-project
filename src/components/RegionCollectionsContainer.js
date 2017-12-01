@@ -7,8 +7,8 @@ class RegionCollectionsContainer extends Component {
             <div className="row">
                 <div className="col-md-3"></div>
                 <div className="col-md-3"></div>
-                <div className="col-md-1">{value}</div>
-                <div className="col-md-1">{label}</div>
+                <div className="col-md-2">{value}</div>
+                <div className="col-md-2">{label}</div>
             </div>
         )
     }

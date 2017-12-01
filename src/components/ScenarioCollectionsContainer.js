@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ScenariosContainer from './ScenariosContainer';
+import LocalizedStrings from './LocalizedStrings';
 
 class ScenarioCollectionsContainer extends Component {
     render() {
@@ -13,6 +14,7 @@ class ScenarioCollectionsContainer extends Component {
                 <div className="col-md-3">{name}</div>
                 <div className="col-md-3">{description}</div>
                 <div className="col-md-3">
+                <p> {LocalizedStrings.titleScenarios} </p>
                     {
                         scenarios.map(element => <ScenariosContainer key={element.id}
                             id={element.id}
