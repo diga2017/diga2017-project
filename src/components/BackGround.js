@@ -7,7 +7,8 @@ class BackGround extends Component {
 
             <div>
                 <div class="row">
-                    <div class="col bg-dark text-white">
+
+                    <div class="col bg-dark text-white ">
                     1 of 3
                     </div>
                     <div class="col bg-primary text-white">
