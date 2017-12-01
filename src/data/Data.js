@@ -2,7 +2,7 @@ import axios from 'axios';
 import Config from '../Config';
 
 function setUserLanguage(language){
-    console.log("setUserLanguage: " + language);
+    // console.log("setUserLanguage: " + language);
     axios.defaults.headers.get['Accept-Language'] = language;
 }
 

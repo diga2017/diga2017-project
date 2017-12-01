@@ -11,17 +11,18 @@ import ScenarioCollectionsContainer from './components/ScenarioCollectionsContai
 // Placeholder data (will be removed after backend requests are working)
 import DataHolder from './data/DataHolder';
 
+import Graphs from './components/Graphs'
+
 class App extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      language: "fi",
+      language: "en",
       regionLevels: [],         // includes: name, description, id and order
       regions: [],              // includes: id, name, shortName, order and scenarioCollections: id, name, description
       scenarioCollections: [],
-      chosenRegionCollections: [],
 
       regionLevelId: 1,
       regionId: 33,
@@ -44,31 +45,31 @@ class App extends Component {
     }
     this.getAllData();
   }
-  
+
   getAllData() {
     Data.setUserLanguage(this.state.language);
 
     Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
-      console.log("regionLevels: " + this.state.regionLevels);
+      // console.log("regionLevels: " + this.state.regionLevels);
     });
 
     Data.getRegions(this.state.regionLevelId).then(result => {
       this.setState({ regions: result });
-      console.log("regions: " + this.state.regions);
+      // console.log("regions: " + this.state.regions);
     });
 
     Data.getScenarioCollections(this.state.scenarioId, this.state.regionId).then(result => {
       this.setState({ scenarioCollections: result });
-      console.log("scenarioCollections: " + this.state.scenarioCollections);
+      // console.log("scenarioCollections: " + this.state.scenarioCollections);
     });
   }
 
   render() {
     return (
       <div className="App">
-      <button type="button" className="btn btn-primary" onClick={ this.toggleLanguage }>{this.state.language}</button>
-      <a type="button" className="btn btn-primary" href={ Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi) }>Send feedback</a>
+        <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{this.state.language}</button>
+        <a type="button" className="btn btn-primary" href={Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi)}>Send feedback</a>
         <p>REGION LEVELS</p>
         <div>
           {
@@ -99,6 +100,15 @@ class App extends Component {
               name={element.name}
               description={element.description}
               scenarios={element.scenarios} />)
+          }
+        </div>
+        <div>
+          {
+            this.state.scenarioCollections.map(element => <Graphs key={element.id}
+              scenarios={element.scenarios}
+              timePeriods={element.timePeriods}
+              indicatorCategories={element.indicatorCategories}
+              values={element.values} />)
           }
         </div>
       </div >
