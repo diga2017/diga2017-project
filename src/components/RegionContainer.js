@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RegionCollectionsContainer from './RegionCollectionsContainer'
+import LocalizedStrings from './LocalizedStrings'
 
 class RegionContainer extends Component {
 
@@ -14,8 +15,8 @@ class RegionContainer extends Component {
                     <div className="col-md-3">{shortName}</div>
                     <div className="col-md-3">{order}</div>
                 </div>
-                <p> Regions scenarioCollections: </p>
-                <div className="row">
+                <div className="row col-md-1">
+                <p> {LocalizedStrings.titleScenarioCollection} </p>
                     {
                         scenarioCollections.map(element => <RegionCollectionsContainer key = { element.id }
                                                 value = { element.id }
