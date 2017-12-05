@@ -21,7 +21,7 @@ class Graphs extends Component {
         // which is later looped through to create the displayable data series
         // NOTE: User must have chosen: scenarios, indicators and a time period
         chosenScenarios.forEach(scenario => {
-            chosenScenarioNames.push(scenario.name);
+            chosenScenarioNames.push(scenario.description);
             let chosenValues = [];
             chosenIndicators.forEach(indicator => {
                 chosenIndicatorNames.push(indicator.name);
@@ -77,7 +77,8 @@ class Graphs extends Component {
             },
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
