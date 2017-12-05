@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+//import "./App.css";
 // Backend datagetter. Currently not functioning
 import Data from "./data/Data";
 // Placeholder containers
@@ -13,6 +14,7 @@ import RegionsField from "./components/DropDownRegions";
 import RegionsLvl from "./components/DropDownRgnSlct";
 import ScenarioCol from "./components/DropDownScnCol";
 import Scenarios from "./components/DropDownScns";
+import RegionLvlBtn from "./components/RegionSlctBtn";
 
 class App extends Component {
   constructor(props) {
@@ -52,52 +54,54 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <p>REGION LEVELS</p>
-        <div>
-          {this.state.regionLevels.map(element => (
-            <RegionLevelContainer
-              key={element.id}
-              id={element.id}
-              name={element.name}
-              description={element.description}
-              order={element.order}
-            />
-          ))}
-        </div>
-        <p>REGIONS (ID: {this.state.regionLevelId})</p>
-        <div>
-          {this.state.regions.map(element => (
-            <RegionContainer
-              key={element.id}
-              id={element.id}
-              name={element.name}
-              shortName={element.shortName}
-              order={element.order}
-              scenarioCollections={element.scenarioCollections}
-            />
-          ))}
-        </div>
-        <p>
-          SCENARIOCOLLECTIONS (regionID: {this.state.regionId} /
-          scenarioCollectionsID: {this.state.scenarioId})
-        </p>
-        <div>
-          {this.state.scenarioCollections.map(element => (
-            <ScenarioCollectionsContainer
-              key={element.id}
-              id={element.id}
-              name={element.name}
-              description={element.description}
-              scenarios={element.scenarios}
-            />
-          ))}
-        </div>
-        <div className="grid">
-          <RegionsLvl />
-          <RegionsField />
-          <ScenarioCol />
-          <Scenarios />
+      <div class="container-fluid">
+        <div className="App">
+          <p>REGION LEVELS</p>
+          <div>
+            {this.state.regionLevels.map(element => (
+              <RegionLevelContainer
+                key={element.id}
+                id={element.id}
+                name={element.name}
+                description={element.description}
+                order={element.order}
+              />
+            ))}
+          </div>
+          <p>REGIONS (ID: {this.state.regionLevelId})</p>
+          <div>
+            {this.state.regions.map(element => (
+              <RegionContainer
+                key={element.id}
+                id={element.id}
+                name={element.name}
+                shortName={element.shortName}
+                order={element.order}
+                scenarioCollections={element.scenarioCollections}
+              />
+            ))}
+          </div>
+          <p>
+            SCENARIOCOLLECTIONS (regionID: {this.state.regionId} /
+            scenarioCollectionsID: {this.state.scenarioId})
+          </p>
+          <div>
+            {this.state.scenarioCollections.map(element => (
+              <ScenarioCollectionsContainer
+                key={element.id}
+                id={element.id}
+                name={element.name}
+                description={element.description}
+                scenarios={element.scenarios}
+              />
+            ))}
+          </div>
+          <div className="grid">
+            <RegionsLvl />
+            <RegionsField />
+            <ScenarioCol />
+            <Scenarios />
+          </div>
         </div>
       </div>
     );

@@ -42,8 +42,8 @@ var Scenarios = createClass({
     return (
       <div className="section">
         <div className="row">
-          <h3>Skenaariot: </h3>
           <div className="col-md-4">
+          <h3>Skenaariot: </h3>
             <Select
               closeOnSelect={!stayOpen}
               multi

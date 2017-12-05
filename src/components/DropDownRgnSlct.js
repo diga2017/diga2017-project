@@ -32,8 +32,8 @@ var RegionsLvl = createClass({
     return (
       <div className="section">
         <div className="row">
-          <h3>Alue: </h3>
-          <div className="col-md-4">
+        <div className="col-md-4">
+          <h3>Aluetaso: </h3>
             <Select
               onChange={this.handleSelectChange}
               options={options}

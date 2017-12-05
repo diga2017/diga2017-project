@@ -32,8 +32,8 @@ var ScenarioCol = createClass({
     return (
       <div className="section">
         <div className="row">
-          <h3>Skenaariokokoelma: </h3>
           <div className="col-md-4">
+          <h3>Skenaariokokoelma: </h3>
             <Select
               onChange={this.handleSelectChange}
               options={options}
