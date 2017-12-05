@@ -9,6 +9,7 @@ import Data from './data/Data';
 import RegionLevelContainer from './components/RegionLevelContainer';
 import RegionContainer from './components/RegionContainer';
 import ScenarioCollectionsContainer from './components/ScenarioCollectionsContainer';
+import NavBar from './components/NavBar';
 // Placeholder data (will be removed after backend requests are working)
 import DataHolder from './data/DataHolder';
 
@@ -67,8 +68,29 @@ class App extends Component {
 
   render() {
     return (
+
       <div className="App">
-        <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{ localizedStrings.languageOnSwitch }</button>
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
+              <div className="container">
+                  <a className="navbar-brand text-white" href="#" >diga2017</a>
+                  
+                  <div className="form-inline my-2 my-lg-0">
+
+                 
+
+                  <button className="Toggle_langage" onClick = {this.toggleLanguage}>{ localizedStrings.languageOnSwitch } 
+                  
+                  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" width="30" height="30" alt="" />
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/2000px-Flag_of_Finland.svg.png" width="30" height="30" alt="" /></button>
+                  
+                  </div>
+                  
+              </div>
+          </nav>
+
+    
+
+        
         <a type="button" className="btn btn-primary" href={Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi)}>Send feedback</a>
         <p> { localizedStrings.titleRegionLevel } </p>
         <div>
@@ -112,8 +134,12 @@ class App extends Component {
           }
         </div>
       </div >
+
+      
+
     );
   }
 }
+
 
 export default App;
