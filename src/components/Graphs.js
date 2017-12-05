@@ -5,7 +5,7 @@ class Graphs extends Component {
     render() {
         const { scenarios, timePeriods, indicatorCategories, values } = this.props;
 
-        let chosenTimePeriod = timePeriods[1];
+        let chosenTimePeriod = timePeriods[0];
         let chosenIndicatorCategory = indicatorCategories[0];
 
         let chosenScenarios = [scenarios[0], scenarios[1], scenarios[2]];
@@ -60,7 +60,7 @@ class Graphs extends Component {
                 type: 'column'
             },
             title: {
-                text: timePeriods[0].yearStart + '-' + timePeriods[0].yearEnd
+                text: chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
             },
             subtitle: {
                 text: 'Source: http://melatupa.azurewebsites.net/'
