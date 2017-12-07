@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-const ReactHighmaps = require('react-highcharts/ReactHighmaps');
+import Heatmap from 'highcharts/modules/heatmap'
+import ReactHighchart from 'react-highcharts'
+
+Heatmap(ReactHighchart.Highcharts)
 
 class Tables extends Component {
     render() {
@@ -23,7 +26,6 @@ class Tables extends Component {
             chosenScenarioNames.push(scenario.description);
             let chosenValues = [];
             chosenIndicators.forEach(indicator => {
-                chosenIndicatorNames.push(indicator.name);
                 values.forEach(value => {
                     if (value.scenarioId === scenario.id) {
                         if (value.indicatorId === indicator.id) {
@@ -35,6 +37,10 @@ class Tables extends Component {
                 });
             });
             chosenValueSeries.push(chosenValues);
+        });
+
+        chosenIndicators.forEach(indicator => {
+            chosenIndicatorNames.push(indicator.name);
         });
 
         // This loops through the users scenario choices and creates series objects to be shown with the data pairing of the scenario/indicator combinations
@@ -64,13 +70,12 @@ class Tables extends Component {
             }
         });
 
-        console.log(JSON.stringify(chosenValueSeries));
-
         const config = {
             chart: {
                 type: 'heatmap',
                 marginTop: 80,
                 marginBottom: 80,
+                margin: 120,
                 plotBorderWidth: 1
             },
             title: {
@@ -80,12 +85,13 @@ class Tables extends Component {
                 text: 'Source: http://melatupa.azurewebsites.net/'
             },
             xAxis: {
+                opposite: true,
                 categories: chosenScenarioNames,
                 title: "Chosen scenarios"
             },
             yAxis: {
                 categories: chosenIndicatorNames,
-                title: "Chosen indicators"
+                title: "Chosen indicators",
             },
             colorAxis: {
                 min: 0,
@@ -93,6 +99,7 @@ class Tables extends Component {
                 maxColor: '#000000'
             },
             legend: {
+                enabled: false,
                 align: 'right',
                 layout: 'vertical',
                 margin: 0,
@@ -119,7 +126,7 @@ class Tables extends Component {
 
         return (
             <div>
-                <ReactHighmaps config={config} />
+                <ReactHighchart config={config} />
             </div>
         )
     }
