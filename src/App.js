@@ -10,12 +10,10 @@ import ScenarioCollectionsContainer from "./components/ScenarioCollectionsContai
 // Placeholder data (will be removed after backend requests are working)
 import DataHolder from "./data/DataHolder";
 // Dropdown components
-import RegionsField from "./components/DropDownRegions";
-import RegionsLvl from "./components/DropDownRgnSlct";
 import ScenarioCol from "./components/DropDownScnCol";
 import Scenarios from "./components/DropDownScns";
-import RegionLvlBtn from "./components/RegionSlctBtn";
-
+import RegionLvlBtn from "./components/DropDownRgnSlct";
+import RegionBtn from "./components/DropDownRegions";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,11 +23,15 @@ class App extends Component {
       regions: [], // includes: id, name, shortName, order and scenarioCollections: id, name, description
       scenarioCollections: [],
       chosenRegionCollections: [],
+      update: "",
 
       regionLevelId: 1,
       regionId: 33,
       scenarioId: 6
     };
+
+    this.selectRegionLevel = this.selectRegionLevel.bind(this);
+    this.selectRegion = this.selectRegion.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +52,17 @@ class App extends Component {
       this.setState({ scenarioCollections: result });
       console.log("scenarioCollections: " + this.state.scenarioCollections);
     });
+  }
+
+  selectRegionLevel(regionId) {
+    Data.getRegions(regionId).then(result => {
+      this.setState({ regions: result });
+    });
+    this.setState({ update: "" });
+  }
+
+  selectRegion(regionId) {
+    this.setState({ update: regionId });
   }
 
   render() {
@@ -97,8 +110,14 @@ class App extends Component {
             ))}
           </div>
           <div className="grid">
-            <RegionsLvl />
-            <RegionsField />
+            <RegionLvlBtn
+              regionLevels={this.state.regionLevels}
+              selectRegionLevel={this.selectRegionLevel}
+            />
+            <RegionBtn
+              regions={this.state.regions}
+              selectRegion={this.selectRegion}
+            />
             <ScenarioCol />
             <Scenarios />
           </div>

@@ -1,50 +1,48 @@
-import React from "react";
-import createClass from "create-react-class";
-import PropTypes from "prop-types";
-import Select from "react-select";
-import "react-select/dist/react-select.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Data from "../data/Data";
+import React, { element } from "react";
 
-require("create-react-class");
+class RegionLvlBtn extends React.Component {
+  constructor(props) {
+    super(props);
 
-const REGIONLVL = [
-  { label: "Maakunnat", value: "maakunt" },
-  { label: "Metsänhoitoalueet", value: "metsh" }
-];
-
-var RegionsLvl = createClass({
-  displayName: "RegionsLvl",
-  propTypes: {
-    label: PropTypes.string
-  },
-  getInitialState() {
-    return {
-      value: []
+    this.state = {
+      regionLevels: []
     };
-  },
-  handleSelectChange(value) {
-    console.log("Valinnat: ", value);
-    this.setState({ value });
-  },
+    this.onItemClick = this.onItemClick.bind(this);
+  }
+
+  componentDidMount() {
+    Data.getRegionLevels().then(result => {
+      this.setState({ regionLevels: result });
+      console.log("regionLevels: " + this.state.regionLevels);
+    });
+  }
+
+  onItemClick(event) {
+    this.props.selectRegionLevel(event.target.value);
+  }
 
   render() {
-    const { value } = this.state;
-    const options = REGIONLVL;
     return (
       <div className="section">
         <div className="row">
-        <div className="col-md-4">
-          <h3>Aluetaso: </h3>
-            <Select
-              onChange={this.handleSelectChange}
-              options={options}
-              placeholder="Valitse aluetaso: "
-              simpleValue
-              value={value}
-            />
+          <div className="col-md-4">
+            <h3>Aluetaso:</h3>
+            <div className="form-group">
+              <select className="form-control" onChange={this.onItemClick}>
+                {this.state.regionLevels.map(element => (
+                  <option value={element.id} key={element.id}>
+                    {element.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
     );
   }
-});
-export default RegionsLvl;
+}
+
+export default RegionLvlBtn;
