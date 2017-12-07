@@ -10,7 +10,7 @@ import ScenarioCollectionsContainer from "./components/ScenarioCollectionsContai
 // Placeholder data (will be removed after backend requests are working)
 import DataHolder from "./data/DataHolder";
 // Dropdown components
-import ScenarioCol from "./components/DropDownScnCol";
+import ScenarioColBtn from "./components/DropDownScnCol";
 import Scenarios from "./components/DropDownScns";
 import RegionLvlBtn from "./components/DropDownRgnSlct";
 import RegionBtn from "./components/DropDownRegions";
@@ -32,6 +32,7 @@ class App extends Component {
 
     this.selectRegionLevel = this.selectRegionLevel.bind(this);
     this.selectRegion = this.selectRegion.bind(this);
+    this.selectScenarioCollections = this.selectScenarioCollections.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +64,10 @@ class App extends Component {
 
   selectRegion(regionId) {
     this.setState({ update: regionId });
+  }
+
+  selectScenarioCollections(){
+
   }
 
   render() {
@@ -118,7 +123,10 @@ class App extends Component {
               regions={this.state.regions}
               selectRegion={this.selectRegion}
             />
-            <ScenarioCol />
+            <ScenarioColBtn
+              scenarioCollections={this.state.scenarioCollections}
+              selectScenarioCollections={this.selectScenarioCollections}
+            />
             <Scenarios />
           </div>
         </div>

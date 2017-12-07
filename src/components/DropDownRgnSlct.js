@@ -9,17 +9,16 @@ class RegionLvlBtn extends React.Component {
     this.state = {
       regionLevels: []
     };
-    this.onItemClick = this.onItemClick.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
   }
 
   componentDidMount() {
     Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
-      console.log("regionLevels: " + this.state.regionLevels);
     });
   }
 
-  onItemClick(event) {
+  handleOnClick(event) {
     this.props.selectRegionLevel(event.target.value);
   }
 
@@ -30,8 +29,8 @@ class RegionLvlBtn extends React.Component {
           <div className="col-md-4">
             <h3>Aluetaso:</h3>
             <div className="form-group">
-              <select className="form-control" onChange={this.onItemClick}>
-                {this.state.regionLevels.map(element => (
+              <select className="form-control" onChange={this.handleOnClick}>
+                {this.props.regionLevels.map(element => (
                   <option value={element.id} key={element.id}>
                     {element.name}
                   </option>

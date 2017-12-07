@@ -1,50 +1,50 @@
-import React from "react";
-import createClass from "create-react-class";
-import PropTypes from "prop-types";
-import Select from "react-select";
-import "react-select/dist/react-select.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Data from "../data/Data";
+import React, { element } from "react";
 
-require("create-react-class");
+class scenarioColBtn extends React.Component {
+  constructor(props) {
+    super(props);
 
-const SCENSCOL = [
-  { label: "Maakunnat", value: "maakunt" },
-  { label: "Metsänhoitoalueet", value: "metsh" }
-];
-
-var ScenarioCol = createClass({
-  displayName: "ScenarioCollection",
-  propTypes: {
-    label: PropTypes.string
-  },
-  getInitialState() {
-    return {
-      value: []
+    this.state = {
+      scenarioCollections: []
     };
-  },
-  handleSelectChange(value) {
-    console.log("Valinnat: ", value);
-    this.setState({ value });
-  },
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+  componentDidMount() {
+    Data.getScenarioCollections(
+      this.state.scenarioId,
+      this.state.regionId
+    ).then(result => {
+      this.setState({ scenarioCollections: result });
+    });
+  }
+
+  handleOnClick(event) {
+    this.props.selectScenarioCollections(event.target.value);
+  }
 
   render() {
-    const { value } = this.state;
-    const options = SCENSCOL;
     return (
       <div className="section">
         <div className="row">
           <div className="col-md-4">
-          <h3>Skenaariokokoelma: </h3>
-            <Select
-              onChange={this.handleSelectChange}
-              options={options}
-              placeholder="Valitse skenaariokokoelma: "
-              simpleValue
-              value={value}
-            />
+            <h3>Skenaariokokoelma:</h3>
+            <div className="form-group">
+              <select className="form-control" onChange={this.handleOnClick}>
+                {this.props.scenarioCollections.map(element => (
+                  <option value={element.id} key={element.id}>
+                    {element.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
     );
   }
-});
-export default ScenarioCol;
+}
+
+export default scenarioColBtn;

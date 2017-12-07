@@ -5,22 +5,20 @@ import React, { element } from "react";
 class RegionBtn extends React.Component {
   constructor(props) {
     super(props);
-    //this.props.regions
 
     this.state = {
       regions: []
     };
-    this.selectHandler = this.selectHandler.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
   }
 
   componentDidMount() {
     Data.getRegions().then(result => {
       this.setState({ regions: result });
-      console.log("regions: " + this.state.regions);
     });
   }
 
-  selectHandler(event) {
+  handleOnClick(event) {
     this.props.selectRegion(event.target.value);
   }
 
@@ -31,7 +29,7 @@ class RegionBtn extends React.Component {
           <div className="col-md-4">
             <h3>Alue:</h3>
             <div className="form-group">
-              <select className="form-control" onChange={this.selectHandler}>
+              <select className="form-control" onChange={this.handleOnClick}>
                 {this.props.regions.map(element => (
                   <option value={element.id} key={element.id}>
                     {element.name}
