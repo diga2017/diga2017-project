@@ -25,8 +25,6 @@ class RegionBtn extends React.Component {
   render() {
     return (
       <div className="section">
-        <div className="row">
-          <div className="col-md-4">
             <h3>Alue:</h3>
             <div className="form-group">
               <select className="form-control" onChange={this.handleOnClick}>
@@ -38,8 +36,6 @@ class RegionBtn extends React.Component {
               </select>
             </div>
           </div>
-        </div>
-      </div>
     );
   }
 }

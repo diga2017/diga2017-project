@@ -41,8 +41,6 @@ var Scenarios = createClass({
     const options = SCNS;
     return (
       <div className="section">
-        <div className="row">
-          <div className="col-md-4">
           <h3>Skenaariot: </h3>
             <Select
               closeOnSelect={!stayOpen}
@@ -69,8 +67,7 @@ var Scenarios = createClass({
               </label>
             </div>
           </div>
-        </div>
-      </div>
+        
     );
   }
 });

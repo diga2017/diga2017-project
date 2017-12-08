@@ -28,8 +28,8 @@ class scenarioColBtn extends React.Component {
   render() {
     return (
       <div className="section">
-        <div className="row">
-          <div className="col-md-4">
+        
+         
             <h3>Skenaariokokoelma:</h3>
             <div className="form-group">
               <select className="form-control" onChange={this.handleOnClick}>
@@ -39,8 +39,7 @@ class scenarioColBtn extends React.Component {
                   </option>
                 ))}
               </select>
-            </div>
-          </div>
+            
         </div>
       </div>
     );
