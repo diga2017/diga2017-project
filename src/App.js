@@ -34,25 +34,39 @@ class App extends Component {
     this.selectRegionLevel = this.selectRegionLevel.bind(this);
     this.selectRegion = this.selectRegion.bind(this);
     this.selectScenarioCollections = this.selectScenarioCollections.bind(this);
+    this.toggleLanguage = this.toggleLanguage.bind(this);
+    this.getAllData = this.getAllData.bind(this);
   }
 
   componentDidMount() {
+    this.getAllData();
+  }
+
+  toggleLanguage() {
+    if (localizedStrings.getLanguage() == "fi") {
+      localizedStrings.setLanguage("en");
+    } else {
+      localizedStrings.setLanguage("fi");
+    }
+    this.getAllData();
+  }
+
+  getAllData() {
+    Data.setHeaderLanguage(localizedStrings.getLanguage());
+
     Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
-      console.log("regionLevels: " + this.state.regionLevels);
+      // console.log("regionLevels: " + this.state.regionLevels);
     });
 
     Data.getRegions(this.state.regionLevelId).then(result => {
       this.setState({ regions: result });
-      console.log("regions: " + this.state.regions);
+      // console.log("regions: " + this.state.regions);
     });
 
-    Data.getScenarioCollections(
-      this.state.scenarioId,
-      this.state.regionId
-    ).then(result => {
+    Data.getScenarioCollections(this.state.scenarioId, this.state.regionId).then(result => {
       this.setState({ scenarioCollections: result });
-      console.log("scenarioCollections: " + this.state.scenarioCollections);
+      // console.log("scenarioCollections: " + this.state.scenarioCollections);
     });
   }
 
@@ -70,13 +84,36 @@ class App extends Component {
   selectScenarioCollections(){
 
   }
+  
 
   render() {
     return (
       
       <div className="App">
      
-      <NavBar />
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
+            <div className="container">
+                <a className="navbar-brand text-white" href="#" >diga2017</a>
+                
+                <div className="form-inline my-2 my-lg-0">
+  
+                <button className="Toggle_langage" class = "btn btn-sm btn-info" onClick = {this.toggleLanguage}>{ localizedStrings.languageOnSwitch } 
+
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" width="25" height="25" alt="" />
+            
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/2000px-Flag_of_Finland.svg.png" width="25" height="25" alt="" />
+             
+                </button>
+
+                <button className="Toggle_langage" class = "btn btn-sm btn-info" > 
+                    
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7lcST3H5P7M7Q_SvGC7RG4XIhOt6IwTdWPZM1AU5ro6cvDO7d2A" width="25" height="25" alt="" />
+             
+                </button>
+
+                </div>
+                </div>
+            </nav>
 
 
 
