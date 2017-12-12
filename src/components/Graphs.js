@@ -21,7 +21,7 @@ class Graphs extends Component {
         // which is later looped through to create the displayable data series
         // NOTE: User must have chosen: scenarios, indicators and a time period
         chosenScenarios.forEach(scenario => {
-            chosenScenarioNames.push(scenario.name);
+            chosenScenarioNames.push(scenario.description);
             let chosenValues = [];
             chosenIndicators.forEach(indicator => {
                 chosenIndicatorNames.push(indicator.name);
@@ -60,7 +60,7 @@ class Graphs extends Component {
                 type: 'column'
             },
             title: {
-                text: timePeriods[0].yearStart + '-' + timePeriods[0].yearEnd
+                text: chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
             },
             subtitle: {
                 text: 'Source: http://melatupa.azurewebsites.net/'

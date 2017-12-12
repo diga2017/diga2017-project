@@ -4,6 +4,7 @@ let localizedStrings = new LocalizedStrings({
   en: {
     language: "English",
     languageOnSwitch: "Suomi",
+    titleApplication: "Forest Indicator",
     titleChoosingScenarios: "Choose scenarios",
     titleRegionLevel: "Region level",
     titleRegion: "Region",
@@ -11,10 +12,13 @@ let localizedStrings = new LocalizedStrings({
     titleScenarios: "Scenarios",
     titleTimePeriod: "Time period",
     titleChoosingIndicators: "Choose indicators",
+    sendFeedback: "Feedback",
+    stayOpen: "Stay open after scenario choices",
   },
   fi: {
     language: "Suomi",
     languageOnSwitch: "English",
+    titleApplication: "Metsämittari",
     titleChoosingScenarios: "Skenaarioiden valinta",
     titleRegionLevel: "Aluetaso",
     titleRegion: "Alue",
@@ -22,6 +26,8 @@ let localizedStrings = new LocalizedStrings({
     titleScenarios: "Skenaariot",
     titleTimePeriod: "Ajankohta",
     titleChoosingIndicators: "Indikaattorien valinta",
+    sendFeedback: "Palaute",
+    stayOpen: "Pysy avoinna kun skenaario valittu"
   }
 });
 

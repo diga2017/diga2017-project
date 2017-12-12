@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Data from "../data/Data";
 import React, { element } from "react";
+import localizedStrings from './LocalizedStrings';
 
 class RegionLvlBtn extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class RegionLvlBtn extends React.Component {
     return (
       <div className="section">
   
-            <h3>Aluetaso:</h3>
+            <h3>{localizedStrings.titleRegionLevel}:</h3>
             <div className="form-group">
               <select className="form-control" onChange={this.handleOnClick}>
                 {this.props.regionLevels.map(element => (

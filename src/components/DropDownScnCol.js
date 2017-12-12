@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Data from "../data/Data";
 import React, { element } from "react";
+import localizedStrings from './LocalizedStrings';
 
 class scenarioColBtn extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class scenarioColBtn extends React.Component {
       <div className="section">
         
          
-            <h3>Skenaariokokoelma:</h3>
+            <h3>{localizedStrings.titleScenarioCollection}:</h3>
             <div className="form-group">
               <select className="form-control" onChange={this.handleOnClick}>
                 {this.props.scenarioCollections.map(element => (
