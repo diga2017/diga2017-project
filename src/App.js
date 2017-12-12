@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   toggleLanguage() {
-    if (localizedStrings.getLanguage() == "fi") {
+    if (localizedStrings.getLanguage() === "fi") {
       localizedStrings.setLanguage("en");
     } else {
       localizedStrings.setLanguage("fi");
