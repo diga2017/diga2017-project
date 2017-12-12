@@ -21,7 +21,7 @@ class Graphs extends Component {
         // which is later looped through to create the displayable data series
         // NOTE: User must have chosen: scenarios, indicators and a time period
         chosenScenarios.forEach(scenario => {
-            chosenScenarioNames.push(scenario.description);
+            chosenScenarioNames.push(scenario.name);
             let chosenValues = [];
             chosenIndicators.forEach(indicator => {
                 chosenIndicatorNames.push(indicator.name);
