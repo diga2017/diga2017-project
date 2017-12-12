@@ -3,10 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //import "./App.css";
 // Backend datagetter. Currently not functioning
 import Data from "./data/Data";
-// Placeholder containers
-import RegionLevelContainer from "./components/RegionLevelContainer";
-import RegionContainer from "./components/RegionContainer";
-import ScenarioCollectionsContainer from "./components/ScenarioCollectionsContainer";
+import Config from './Config';
 import localizedStrings from './components/LocalizedStrings'
 // Placeholder data (will be removed after backend requests are working)
 import DataHolder from "./data/DataHolder";
@@ -36,9 +33,26 @@ class App extends Component {
     this.selectRegionLevel = this.selectRegionLevel.bind(this);
     this.selectRegion = this.selectRegion.bind(this);
     this.selectScenarioCollections = this.selectScenarioCollections.bind(this);
+    this.toggleLanguage = this.toggleLanguage.bind(this);
+    this.getAllData = this.getAllData.bind(this);
+  }
+
+  toggleLanguage() {
+    if (localizedStrings.getLanguage() === "fi") {
+      localizedStrings.setLanguage("en");
+    } else {
+      localizedStrings.setLanguage("fi");
+    }
+    this.getAllData();
   }
 
   componentDidMount() {
+    this.getAllData();
+  }
+
+  getAllData() {
+    Data.setHeaderLanguage(localizedStrings.getLanguage());
+
     Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
       console.log("regionLevels: " + this.state.regionLevels);
@@ -69,126 +83,126 @@ class App extends Component {
     this.setState({ update: regionId });
   }
 
-  selectScenarioCollections(){
+  selectScenarioCollections() {
 
   }
 
   render() {
     return (
-      
+
       <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
           <div className="container">
-              <a className="navbar-brand text-white" href="#" >diga2017</a>
-              
-              <div className="form-inline my-2 my-lg-0">
+            <a className="navbar-brand text-white" href="#" >diga2017</a>
 
-              <button className="Toggle_langage" onClick = {this.toggleLanguage}>{ localizedStrings.languageOnSwitch } 
+            <div className="form-inline my-2 my-lg-0">
+
+              <button className="toggle_language" onClick={this.toggleLanguage}>{localizedStrings.languageOnSwitch}
+
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" width="30" height="30" alt="" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/2000px-Flag_of_Finland.svg.png" width="30" height="30" alt="" />
+              </button>
               
-              <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" width="30" height="30" alt="" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/2000px-Flag_of_Finland.svg.png" width="30" height="30" alt="" /></button>
-              
+              <a type="button" className="send_feedback" href={Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi)}>{localizedStrings.sendFeedback}</a>
+            </div>
+
+          </div>
+        </nav>
+
+
+
+        <div className="container">
+          <h1 className="title">{localizedStrings.titleApplication} </h1>
+          <div className="row">
+
+            <div className="col-md-3">
+              <div className="grid ">
+                <RegionLvlBtn
+                  regionLevels={this.state.regionLevels}
+                  selectRegionLevel={this.selectRegionLevel}
+                />
+                <RegionBtn
+                  regions={this.state.regions}
+                  selectRegion={this.selectRegion}
+                />
+                <ScenarioColBtn
+                  scenarioCollections={this.state.scenarioCollections}
+                  selectScenarioCollections={this.selectScenarioCollections}
+                />
+                <Scenarios />
               </div>
-
-              
-              
-          </div>
-      </nav>
-
-
-
-       <div className="container">
-         <h1 className="title">Metsämittari </h1>
-        <div className="row">
-        
-        <div className="col-md-3">
-          <div className="grid ">
-            <RegionLvlBtn
-              regionLevels={this.state.regionLevels}
-              selectRegionLevel={this.selectRegionLevel}
-            />
-            <RegionBtn
-              regions={this.state.regions}
-              selectRegion={this.selectRegion}
-            />
-            <ScenarioColBtn
-              scenarioCollections={this.state.scenarioCollections}
-              selectScenarioCollections={this.selectScenarioCollections}
-            />
-            <Scenarios />
-          </div>
-        </div>
+            </div>
 
 
             <div className="col-12 col-md-6">
-                <div>
-                  {
-                      this.state.scenarioCollections.map(element => <Graphs key={element.id}
-                                                                            scenarios={element.scenarios}
-                                                                            timePeriods={element.timePeriods}
-                                                                            indicatorCategories={element.indicatorCategories}
-                                                                            values={element.values} />)
-                  }
-                </div>
-                <button type="button" className="btn btn-default  btn-lg" aria-label="Left Align">
-                    <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                </button>
-                <button type="button" className="btn btn-default btn-lg">
-                    <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
-                </button>
-                <button type="button" className="btn btn-default btn-lg">
-                    <span className="glyphicon glyphicon-flash" aria-hidden="true"></span>
-                </button>
-                <button type="button" className="btn btn-default btn-lg">
-                    <span className="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
-                </button>
+              <div>
+                {
+                  this.state.scenarioCollections.map(element => <Graphs key={element.id}
+                    scenarios={element.scenarios}
+                    timePeriods={element.timePeriods}
+                    indicatorCategories={element.indicatorCategories}
+                    values={element.values} />)
+                }
+              </div>
+              <button type="button" className="btn btn-default  btn-lg" aria-label="Left Align">
+                <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+              </button>
+              <button type="button" className="btn btn-default btn-lg">
+                <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
+              </button>
+              <button type="button" className="btn btn-default btn-lg">
+                <span className="glyphicon glyphicon-flash" aria-hidden="true"></span>
+              </button>
+              <button type="button" className="btn btn-default btn-lg">
+                <span className="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+              </button>
 
             </div>
 
 
             <div className="col-4 col-md-3">
-                <h3 className="title">Indikaattoreiden valinta</h3>
-                <br/>
-                <div className="list-group">
-                    <h4 className="title">Puuntuotanto*</h4>
-                    <button type="button" className="list-group-item list-group-item-action">Kantohinta-arvo</button>
-                    <button type="button" className="list-group-item list-group-item-action">Nettotulojen nykyarvo</button>
-                    <button type="button" className="list-group-item list-group-item-action">Hakkuukertymä</button>
-                    <button type="button" className="list-group-item list-group-item-action">Tilavuus</button>
-                </div>
-                <br/>
-                <div className="list-group">
-                    <h4 className="title">Keruutuotteet</h4>
-                    <button type="button" className="list-group-item list-group-item-action">Mustikkasato</button>
-                    <button type="button" className="list-group-item list-group-item-action">Puolukkasato</button>
-                </div>
-                <br/>
-                <div className="list-group">
-                    <h4 className="title">Monimuotoisuus*</h4>
-                    <button type="button" className="list-group-item list-group-item-action">Lahopuun</button>
-                    <button type="button" className="list-group-item list-group-item-action">Putkilokasvien lkm</button>
-                    <button type="button" className="list-group-item list-group-item-action">Mustikan peittävyys</button>
-                    <button type="button" className="list-group-item list-group-item-action">Jäkälien peittävyys</button>
-                    <button type="button" className="list-group-item list-group-item-action">Käävät</button>
-                </div>
-                <br/>
-                <div className="list-group">
-                    <h4 className="title">Hiili</h4>
-                    <button type="button" className="list-group-item list-group-item-action">Hiilen määrä</button>
-                </div>
-                <br/>
-                <div className="list-group">
-                    <h4 className="title">Muut</h4>
-                    <button type="button" className="list-group-item list-group-item-action">Biomassa</button>
-                </div>
+              <h3 className="title">{localizedStrings.titleChoosingIndicators}</h3>
+              <br />
+              <div className="list-group">
+                <h4 className="title">Puuntuotanto* (will be replaced with data from choices)</h4>
+                <button type="button" className="list-group-item list-group-item-action">Kantohinta-arvo</button>
+                <button type="button" className="list-group-item list-group-item-action">Nettotulojen nykyarvo</button>
+                <button type="button" className="list-group-item list-group-item-action">Hakkuukertymä</button>
+                <button type="button" className="list-group-item list-group-item-action">Tilavuus</button>
+              </div>
+              <br />
+              <div className="list-group">
+                <h4 className="title">Keruutuotteet (will be replaced with data from choices)</h4>
+                <button type="button" className="list-group-item list-group-item-action">Mustikkasato</button>
+                <button type="button" className="list-group-item list-group-item-action">Puolukkasato</button>
+              </div>
+              <br />
+              <div className="list-group">
+                <h4 className="title">Monimuotoisuus* (will be replaced with data from choices)</h4>
+                <button type="button" className="list-group-item list-group-item-action">Lahopuun</button>
+                <button type="button" className="list-group-item list-group-item-action">Putkilokasvien lkm</button>
+                <button type="button" className="list-group-item list-group-item-action">Mustikan peittävyys</button>
+                <button type="button" className="list-group-item list-group-item-action">Jäkälien peittävyys</button>
+                <button type="button" className="list-group-item list-group-item-action">Käävät</button>
+              </div>
+              <br />
+              <div className="list-group">
+                <h4 className="title">Hiili (will be replaced with data from choices)</h4>
+                <button type="button" className="list-group-item list-group-item-action">Hiilen määrä</button>
+              </div>
+              <br />
+              <div className="list-group">
+                <h4 className="title">Muut (will be replaced with data from choices)</h4>
+                <button type="button" className="list-group-item list-group-item-action">Biomassa</button>
+              </div>
             </div>
-        </div>
-         <div className="footer">
+          </div>
+          <div className="footer">
 
-         </div>
-     </div>
-     </div>
-      
+          </div>
+        </div>
+      </div>
+
     );
   }
 }

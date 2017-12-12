@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Data from "../data/Data";
 import React, { element } from "react";
+import localizedStrings from './LocalizedStrings';
 
 class RegionBtn extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class RegionBtn extends React.Component {
   render() {
     return (
       <div className="section">
-            <h3>Alue:</h3>
+            <h3>{localizedStrings.titleRegion}:</h3>
             <div className="form-group">
               <select className="form-control" onChange={this.handleOnClick}>
                 {this.props.regions.map(element => (
