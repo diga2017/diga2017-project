@@ -12,7 +12,8 @@ import ScenarioCollectionsContainer from './components/ScenarioCollectionsContai
 // Placeholder data (will be removed after backend requests are working)
 import DataHolder from './data/DataHolder';
 
-import Graphs from './components/Graphs'
+import Graphs from './components/Graphs';
+import Tables from './components/Tables';
 
 class App extends Component {
 
@@ -38,7 +39,7 @@ class App extends Component {
   }
 
   toggleLanguage() {
-    if (localizedStrings.getLanguage() == "fi") {
+    if (localizedStrings.getLanguage() === "fi") {
       localizedStrings.setLanguage("en");
     } else {
       localizedStrings.setLanguage("fi");
@@ -68,9 +69,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{ localizedStrings.languageOnSwitch }</button>
+        <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{localizedStrings.languageOnSwitch}</button>
         <a type="button" className="btn btn-primary" href={Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi)}>Send feedback</a>
-        <p> { localizedStrings.titleRegionLevel } </p>
+        <p> {localizedStrings.titleRegionLevel} </p>
         <div>
           {
             this.state.regionLevels.map(element => <RegionLevelContainer key={element.id}
@@ -80,7 +81,7 @@ class App extends Component {
               order={element.order} />)
           }
         </div>
-        <p>{ localizedStrings.titleRegion } (ID: {this.state.regionLevelId})</p>
+        <p>{localizedStrings.titleRegion} (ID: {this.state.regionLevelId})</p>
         <div>
           {
             this.state.regions.map(element => <RegionContainer key={element.id}
@@ -92,7 +93,7 @@ class App extends Component {
             />)
           }
         </div>
-        <p>{ localizedStrings.titleScenarioCollection } (regionID: {this.state.regionId} / scenarioCollectionsID: {this.state.scenarioId})</p>
+        <p>{localizedStrings.titleScenarioCollection} (regionID: {this.state.regionId} / scenarioCollectionsID: {this.state.scenarioId})</p>
         <div>
           {
             this.state.scenarioCollections.map(element => <ScenarioCollectionsContainer key={element.id}
@@ -102,6 +103,17 @@ class App extends Component {
               scenarios={element.scenarios} />)
           }
         </div>
+
+        <div>
+          {
+            this.state.scenarioCollections.map(element => <Tables key={element.id}
+              scenarios={element.scenarios}
+              timePeriods={element.timePeriods}
+              indicatorCategories={element.indicatorCategories}
+              values={element.values} />)
+          }
+        </div>
+
         <div>
           {
             this.state.scenarioCollections.map(element => <Graphs key={element.id}
