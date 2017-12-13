@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Data from "../data/Data";
-import React, { element } from "react";
+import React, { Component } from "react";
 import localizedStrings from './LocalizedStrings';
 
-class scenarioColBtn extends React.Component {
+class scenarioColBtn extends Component {
   constructor(props) {
     super(props);
 
@@ -29,18 +29,18 @@ class scenarioColBtn extends React.Component {
   render() {
     return (
       <div className="section">
-        
-         
-            <h3>{localizedStrings.titleScenarioCollection}:</h3>
-            <div className="form-group">
-              <select className="form-control" onChange={this.handleOnClick}>
-                {this.props.scenarioCollections.map(element => (
-                  <option value={element.id} key={element.id}>
-                    {element.name}
-                  </option>
-                ))}
-              </select>
-            
+
+
+        <h3>{localizedStrings.titleScenarioCollection}:</h3>
+        <div className="form-group">
+          <select className="form-control" onChange={this.handleOnClick}>
+            {this.props.scenarioCollections.map(element => (
+              <option value={element.id} key={element.id}>
+                {element.name}
+              </option>
+            ))}
+          </select>
+
         </div>
       </div>
     );

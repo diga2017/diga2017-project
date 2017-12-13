@@ -3,16 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //import "./App.css";
 // Backend datagetter. Currently not functioning
 import Data from "./data/Data";
+import Config from "./Config"
 // Placeholder containers
 import localizedStrings from './components/LocalizedStrings'
-// Placeholder data (will be removed after backend requests are working)
-import DataHolder from "./data/DataHolder";
 // Dropdown components
 import ScenarioColBtn from "./components/DropDownScnCol";
 import Scenarios from "./components/DropDownScns";
 import RegionLvlBtn from "./components/DropDownRgnSlct";
 import RegionBtn from "./components/DropDownRegions";
-import NavBar from "./components/NavBar";
 
 import Graphs from './components/Graphs'
 class App extends Component {
@@ -24,16 +22,17 @@ class App extends Component {
       regions: [], // includes: id, name, shortName, order and scenarioCollections: id, name, description
       scenarioCollections: [],
       chosenRegionCollections: [],
+      scenarios: [],
       update: "",
 
-      regionLevelId: 1,
-      regionId: 33,
-      scenarioId: 6
+      selectedRegionId: 0,
+      selectedScenarioCollectionId: 0,
     };
 
     this.selectRegionLevel = this.selectRegionLevel.bind(this);
     this.selectRegion = this.selectRegion.bind(this);
     this.selectScenarioCollections = this.selectScenarioCollections.bind(this);
+    this.selectScenarios =this.selectScenarios.bind(this);
     this.toggleLanguage = this.toggleLanguage.bind(this);
     this.getAllData = this.getAllData.bind(this);
   }
@@ -58,31 +57,33 @@ class App extends Component {
       this.setState({ regionLevels: result });
       // console.log("regionLevels: " + this.state.regionLevels);
     });
-
-    Data.getRegions(this.state.regionLevelId).then(result => {
-      this.setState({ regions: result });
-      // console.log("regions: " + this.state.regions);
-    });
-
-    Data.getScenarioCollections(this.state.scenarioId, this.state.regionId).then(result => {
-      this.setState({ scenarioCollections: result });
-      // console.log("scenarioCollections: " + this.state.scenarioCollections);
-    });
   }
 
-  selectRegionLevel(regionId) {
-    Data.getRegions(regionId).then(result => {
+  selectRegionLevel(regionLevelId) {
+    Data.getRegions(regionLevelId).then(result => {
       this.setState({ regions: result });
     });
     this.setState({ update: "" });
   }
 
   selectRegion(regionId) {
-    this.setState({ update: regionId });
+    this.setState({ update: regionId,
+                    selectedRegionId : regionId,
+                    chosenRegionCollections : this.state.regions.find(element => element.id == regionId).scenarioCollections });
   }
 
-  selectScenarioCollections(){
+  selectScenarioCollections(scenarioCollectionId) {
+    Data.getScenarioCollections(scenarioCollectionId, this.state.selectedRegionId).then(result => {
+      this.setState({ update: scenarioCollectionId, 
+                      selectedScenarioCollectionId: scenarioCollectionId,
+                      scenarios: result[0].scenarios });
+    });
+  }
 
+  selectScenarios(scenarioId) {
+    this.setState({ update: scenarioId,
+                    selectedScenarioIds: scenarioId,
+                    chosenScenarios: this.state.scenarios.find(element => element.id == scenarioId)});
   }
   
 
@@ -93,24 +94,15 @@ class App extends Component {
      
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
             <div className="container">
-                <a className="navbar-brand text-white" href="#" >diga2017</a>
-                
+                <a className="navbar-brand text-white">diga2017</a>
                 <div className="form-inline my-2 my-lg-0">
-  
-                <button className="Toggle_langage" class = "btn btn-sm btn-info" onClick = {this.toggleLanguage}>{ localizedStrings.languageOnSwitch } 
-
+              <button className="btn btn-sm btn-info" onClick={this.toggleLanguage}>{localizedStrings.languageOnSwitch}
                     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" width="25" height="25" alt="" />
-            
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/2000px-Flag_of_Finland.svg.png" width="25" height="25" alt="" />
-             
                 </button>
-
-                <button className="Toggle_langage" class = "btn btn-sm btn-info" > 
-                    
+                <a type="button" className="btn btn-sm btn-info" href={Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi)}>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7lcST3H5P7M7Q_SvGC7RG4XIhOt6IwTdWPZM1AU5ro6cvDO7d2A" width="25" height="25" alt="" />
-             
-                </button>
-
+                </a>
                 </div>
                 </div>
             </nav>
@@ -118,9 +110,8 @@ class App extends Component {
 
 
        <div className="container">
-         <h1 className="title">Metsämittari </h1>
+         <h1 className="title">{localizedStrings.titleApplication} </h1>
         <div className="row">
-        
         <div className="col-md-3">
           <div className="grid ">
             <RegionLvlBtn
@@ -132,22 +123,25 @@ class App extends Component {
               selectRegion={this.selectRegion}
             />
             <ScenarioColBtn
-              scenarioCollections={this.state.scenarioCollections}
+              scenarioCollections= { this.state.chosenRegionCollections }
               selectScenarioCollections={this.selectScenarioCollections}
             />
-            <Scenarios />
+            <Scenarios 
+              scenarios= { this.state.scenarios }
+              selectScenarios={ this.selectScenarios }/>
           </div>
         </div>
 
 
             <div className="col-12 col-md-6">
                 <div>
-                  {
+                  {/*
                       this.state.scenarioCollections.map(element => <Graphs key={element.id}
                                                                             scenarios={element.scenarios}
                                                                             timePeriods={element.timePeriods}
                                                                             indicatorCategories={element.indicatorCategories}
                                                                             values={element.values} />)
+                                                                            */
                   }
                 </div>
                 <button type="button" className="btn btn-default  btn-lg" aria-label="Left Align">
@@ -168,7 +162,7 @@ class App extends Component {
 
             <div className="col-4 col-md-3">
                 <h3 className="title">Indikaattoreiden valinta</h3>
-                <br/>
+              <br />
                 <div className="list-group">
                     <h4 className="title">Puuntuotanto*</h4>
                     <button type="button" className="list-group-item list-group-item-action">Kantohinta-arvo</button>
@@ -176,13 +170,13 @@ class App extends Component {
                     <button type="button" className="list-group-item list-group-item-action">Hakkuukertymä</button>
                     <button type="button" className="list-group-item list-group-item-action">Tilavuus</button>
                 </div>
-                <br/>
+              <br />
                 <div className="list-group">
                     <h4 className="title">Keruutuotteet</h4>
                     <button type="button" className="list-group-item list-group-item-action">Mustikkasato</button>
                     <button type="button" className="list-group-item list-group-item-action">Puolukkasato</button>
                 </div>
-                <br/>
+              <br />
                 <div className="list-group">
                     <h4 className="title">Monimuotoisuus*</h4>
                     <button type="button" className="list-group-item list-group-item-action">Lahopuun</button>
@@ -191,12 +185,12 @@ class App extends Component {
                     <button type="button" className="list-group-item list-group-item-action">Jäkälien peittävyys</button>
                     <button type="button" className="list-group-item list-group-item-action">Käävät</button>
                 </div>
-                <br/>
+              <br />
                 <div className="list-group">
                     <h4 className="title">Hiili</h4>
                     <button type="button" className="list-group-item list-group-item-action">Hiilen määrä</button>
                 </div>
-                <br/>
+              <br />
                 <div className="list-group">
                     <h4 className="title">Muut</h4>
                     <button type="button" className="list-group-item list-group-item-action">Biomassa</button>

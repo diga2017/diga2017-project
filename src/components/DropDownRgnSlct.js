@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Data from "../data/Data";
-import React, { element } from "react";
+import React, { Component } from "react";
 import localizedStrings from './LocalizedStrings';
 
-class RegionLvlBtn extends React.Component {
+class RegionLvlBtn extends Component {
   constructor(props) {
     super(props);
 
