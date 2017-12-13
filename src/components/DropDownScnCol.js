@@ -29,18 +29,18 @@ class scenarioColBtn extends Component {
   render() {
     return (
       <div className="section">
-        
-         
-            <h3>{localizedStrings.titleScenarioCollection}:</h3>
-            <div className="form-group">
-              <select className="form-control" onChange={this.handleOnClick}>
-                {this.props.scenarioCollections.map(element => (
-                  <option value={element.id} key={element.id}>
-                    {element.name}
-                  </option>
-                ))}
-              </select>
-            
+
+
+        <h3>{localizedStrings.titleScenarioCollection}:</h3>
+        <div className="form-group">
+          <select className="form-control" onChange={this.handleOnClick}>
+            {this.props.scenarioCollections.map(element => (
+              <option value={element.id} key={element.id}>
+                {element.name}
+              </option>
+            ))}
+          </select>
+
         </div>
       </div>
     );
