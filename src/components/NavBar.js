@@ -9,7 +9,7 @@ class NavBar extends Component {
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
             <div className="container">
-                <a className="navbar-brand text-white" href="#" >diga2017</a>
+                <a className="navbar-brand text-white">diga2017</a>
                 
                 <div className="form-inline my-2 my-lg-0">
   
