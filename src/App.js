@@ -3,16 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //import "./App.css";
 // Backend datagetter. Currently not functioning
 import Data from "./data/Data";
+import Config from "./Config"
 // Placeholder containers
 import localizedStrings from './components/LocalizedStrings'
-// Placeholder data (will be removed after backend requests are working)
-import DataHolder from "./data/DataHolder";
 // Dropdown components
 import ScenarioColBtn from "./components/DropDownScnCol";
 import Scenarios from "./components/DropDownScns";
 import RegionLvlBtn from "./components/DropDownRgnSlct";
 import RegionBtn from "./components/DropDownRegions";
-import NavBar from "./components/NavBar";
 
 import Graphs from './components/Graphs'
 class App extends Component {
@@ -93,23 +91,22 @@ class App extends Component {
      
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
             <div className="container">
-                <a className="navbar-brand text-white" href="#" >diga2017</a>
+                <a className="navbar-brand text-white">diga2017</a>
                 
                 <div className="form-inline my-2 my-lg-0">
   
-                <button className="Toggle_langage" class = "btn btn-sm btn-info" onClick = {this.toggleLanguage}>{ localizedStrings.languageOnSwitch } 
+                <button className = "btn btn-sm btn-info" onClick = {this.toggleLanguage}>{ localizedStrings.languageOnSwitch } 
 
                     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" width="25" height="25" alt="" />
             
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/2000px-Flag_of_Finland.svg.png" width="25" height="25" alt="" />
              
                 </button>
-
-                <button className="Toggle_langage" class = "btn btn-sm btn-info" > 
+                <a type="button" className="btn btn-sm btn-info" href={Config.urlEmail + (this.state.language === "fi" ? Config.emailSubjectEn : Config.emailSubjectFi)}>
                     
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7lcST3H5P7M7Q_SvGC7RG4XIhOt6IwTdWPZM1AU5ro6cvDO7d2A" width="25" height="25" alt="" />
              
-                </button>
+                </a>
 
                 </div>
                 </div>
@@ -118,7 +115,7 @@ class App extends Component {
 
 
        <div className="container">
-         <h1 className="title">Metsämittari </h1>
+         <h1 className="title">{localizedStrings.titleApplication} </h1>
         <div className="row">
         
         <div className="col-md-3">
