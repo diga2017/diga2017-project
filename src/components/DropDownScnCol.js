@@ -31,15 +31,13 @@ class scenarioColBtn extends React.Component {
         <div className="row">
           <div className="col-md-4">
             <h3>Skenaariokokoelma:</h3>
-            <div className="form-group">
-              <select className="form-control" onChange={this.handleOnClick}>
-                {this.props.scenarioCollections.map(element => (
-                  <option value={element.id} key={element.id}>
-                    {element.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <select className="form-control" onChange={this.handleOnClick}>
+              {this.props.scenarioCollections.map(element => (
+                <option value={element.id} key={element.id}>
+                  {element.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>

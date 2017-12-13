@@ -6,14 +6,7 @@ import "react-select/dist/react-select.css";
 
 require("create-react-class");
 
-const SCNS = [
-  { label: "Pohojois-Pohjanmaa", value: "p_pohj" },
-  { label: "Keski-Pohjanmaa", value: "k_pohj" },
-  { label: "Etelä-Pohjanmaa", value: "e_pohj" },
-  { label: "Ahvenanmaa", value: "ahvn" },
-  { label: "Uusimaa", value: "uusi" },
-  { label: "Lounais-Suomi", value: "l_suom" }
-];
+const SCNS = [];
 
 var Scenarios = createClass({
   displayName: "Scenarios",

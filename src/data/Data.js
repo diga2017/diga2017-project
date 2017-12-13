@@ -62,4 +62,21 @@ function getScenarioCollections(scenarioCollectionsId, regionId) {
     });
 }
 
-export default { getRegionLevels, getRegions, getScenarioCollections };
+function getYears(){
+    return new Promise((resolve,reject)=>{
+      axios.get(Config.urlBase + '/years/' )
+      .then(results=> {  
+        console.log(results);
+        const years = results.data.map(element => {
+            return element; 
+        });     
+        resolve(years);
+      })
+      .catch(error=>{
+          console.log(error);
+          reject();
+      })
+    }) 
+}
+
+export default { getRegionLevels, getRegions, getScenarioCollections, getYears };

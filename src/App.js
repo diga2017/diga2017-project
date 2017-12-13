@@ -25,9 +25,9 @@ class App extends Component {
       chosenRegionCollections: [],
       update: "",
 
-      regionLevelId: 1,
-      regionId: 33,
-      scenarioId: 6
+      regionLevelId: this.props.selectRegionLevel,
+      regionId: this.props.selectRegion,
+      scenarioId: this.props.selectScenarioCollections,
     };
 
     this.selectRegionLevel = this.selectRegionLevel.bind(this);
@@ -74,46 +74,6 @@ class App extends Component {
     return (
       <div class="container-fluid">
         <div className="App">
-          <p>REGION LEVELS</p>
-          <div>
-            {this.state.regionLevels.map(element => (
-              <RegionLevelContainer
-                key={element.id}
-                id={element.id}
-                name={element.name}
-                description={element.description}
-                order={element.order}
-              />
-            ))}
-          </div>
-          <p>REGIONS (ID: {this.state.regionLevelId})</p>
-          <div>
-            {this.state.regions.map(element => (
-              <RegionContainer
-                key={element.id}
-                id={element.id}
-                name={element.name}
-                shortName={element.shortName}
-                order={element.order}
-                scenarioCollections={element.scenarioCollections}
-              />
-            ))}
-          </div>
-          <p>
-            SCENARIOCOLLECTIONS (regionID: {this.state.regionId} /
-            scenarioCollectionsID: {this.state.scenarioId})
-          </p>
-          <div>
-            {this.state.scenarioCollections.map(element => (
-              <ScenarioCollectionsContainer
-                key={element.id}
-                id={element.id}
-                name={element.name}
-                description={element.description}
-                scenarios={element.scenarios}
-              />
-            ))}
-          </div>
           <div className="grid">
             <RegionLvlBtn
               regionLevels={this.state.regionLevels}
