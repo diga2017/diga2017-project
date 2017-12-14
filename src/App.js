@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-//import "./App.css";
-// Backend datagetter. Currently not functioning
+import "./App.css";
 import Data from "./data/Data";
 import Config from "./Config"
-// Placeholder containers
 import localizedStrings from './components/LocalizedStrings'
 // Dropdown components
 import ScenarioColBtn from "./components/DropDownScnCol";
@@ -34,6 +32,7 @@ class App extends Component {
       scenarios: [],
       update: "",
 
+      selectedRegionLevelId: 0,
       selectedRegionId: 0,
       selectedScenarioCollectionId: 0,
       selectedTimePeriodId: 0,
@@ -41,7 +40,7 @@ class App extends Component {
       selectedScenarioIds: 0,
     };
 
-  
+
     this.selectRegionLevel = this.selectRegionLevel.bind(this);
     this.selectRegion = this.selectRegion.bind(this);
     this.selectScenarioCollections = this.selectScenarioCollections.bind(this);
@@ -70,15 +69,26 @@ class App extends Component {
 
     Data.getRegionLevels().then(result => {
       this.setState({ regionLevels: result });
-      // console.log("regionLevels: " + this.state.regionLevels);
+    });
+
+    Data.getRegions(this.state.selectedRegionLevelId).then(result => {
+      this.setState({ regions: result });
+    });
+
+    Data.getScenarioCollections(this.state.selectedScenarioCollectionId, this.state.selectedRegionId).then(result => {
+      this.setState({ scenarioCollections: result });
     });
   }
 
   selectRegionLevel(regionLevelId) {
     Data.getRegions(regionLevelId).then(result => {
-      this.setState({ regions: result });
+      this.setState({
+        regions: result,
+        selectedRegionLevelId: regionLevelId,
+        update: ""
+      });
     });
-    this.setState({ update: "" });
+    this.forceUpdate();
   }
 
   selectRegion(regionId) {
@@ -88,6 +98,7 @@ class App extends Component {
       chosenRegion: this.state.regions.find(element => element.id == regionId),
       chosenRegionCollections: this.state.regions.find(element => element.id == regionId).scenarioCollections
     });
+    this.forceUpdate();
   }
 
   selectScenarioCollections(scenarioCollectionId) {
@@ -101,6 +112,7 @@ class App extends Component {
         collectionIndicatorCategories: result[0].indicatorCategories
       });
     });
+    this.forceUpdate();
   }
 
   selectScenarios(scenarioId) {
@@ -109,6 +121,7 @@ class App extends Component {
       selectedScenarioIds: scenarioId,
       chosenScenarios: this.state.scenarios.find(element => element.id == scenarioId)
     });
+    this.forceUpdate();
   }
 
   selectTimePeriod(timePeriodId) {
@@ -117,6 +130,7 @@ class App extends Component {
       selectedTimePeriodId: timePeriodId,
       chosenTimePeriod: this.state.timePeriods.find(element => element.id == timePeriodId)
     });
+    this.forceUpdate();
   }
 
   selectIndicators(indicatorId) {
@@ -126,11 +140,12 @@ class App extends Component {
     });
     this.state.collectionIndicatorCategories.forEach(indicatorCategory => {
       indicatorCategory.indicators.forEach(element => {
-        if( element.id == indicatorId) {
-          this.setState({chosenIndicators: element});
+        if (element.id == indicatorId) {
+          this.setState({ chosenIndicators: element });
         }
       });
     });
+    this.forceUpdate();
   }
 
   render() {
@@ -180,7 +195,6 @@ class App extends Component {
               </div>
             </div>
 
-
             <div className="col-12 col-md-6">
               <div>
                 {
@@ -206,32 +220,8 @@ class App extends Component {
 
             </div>
 
-
             <div className="col-4 col-md-3">
-                <h3 className="title">{localizedStrings.titleChoosingIndicators}</h3>
-                <br/>
-                <div className="list-group">
-                    <h4 className="title">Puuntuotanto*</h4>
-                    <button type="button" className="list-group-item list-group-item-action">Kantohinta-arvo</button>
-                    <button type="button" className="list-group-item list-group-item-action">Nettotulojen nykyarvo</button>
-                    <button type="button" className="list-group-item list-group-item-action">Hakkuukertymä</button>
-                    <button type="button" className="list-group-item list-group-item-action">Tilavuus</button>
-                </div>
-              <br />
-                <div className="list-group">
-                    <h4 className="title">Keruutuotteet</h4>
-                    <button type="button" className="list-group-item list-group-item-action">Mustikkasato</button>
-                    <button type="button" className="list-group-item list-group-item-action">Puolukkasato</button>
-                </div>
-              <br />
-                <div className="list-group">
-                    <h4 className="title">Monimuotoisuus*</h4>
-                    <button type="button" className="list-group-item list-group-item-action">Lahopuun</button>
-                    <button type="button" className="list-group-item list-group-item-action">Putkilokasvien lkm</button>
-                    <button type="button" className="list-group-item list-group-item-action">Mustikan peittävyys</button>
-                    <button type="button" className="list-group-item list-group-item-action">Jäkälien peittävyys</button>
-                    <button type="button" className="list-group-item list-group-item-action">Käävät</button>
-                </div>
+              <h3 className="title">{localizedStrings.titleChoosingIndicators}</h3>
               <br />
               {
                 this.state.collectionIndicatorCategories.map(element => <IndicatorCategories key={element.id}
@@ -251,41 +241,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-/*
-<div className="list-group">
-                <h4 className="title">Puuntuotanto*</h4>
-                <button type="button" className="list-group-item list-group-item-action">Kantohinta-arvo</button>
-                <button type="button" className="list-group-item list-group-item-action">Nettotulojen nykyarvo</button>
-                <button type="button" className="list-group-item list-group-item-action">Hakkuukertymä</button>
-                <button type="button" className="list-group-item list-group-item-action">Tilavuus</button>
-              </div>
-              <br />
-              <div className="list-group">
-                <h4 className="title">Keruutuotteet</h4>
-                <button type="button" className="list-group-item list-group-item-action">Mustikkasato</button>
-                <button type="button" className="list-group-item list-group-item-action">Puolukkasato</button>
-              </div>
-              <br />
-              <div className="list-group">
-                <h4 className="title">Monimuotoisuus*</h4>
-                <button type="button" className="list-group-item list-group-item-action">Lahopuun</button>
-                <button type="button" className="list-group-item list-group-item-action">Putkilokasvien lkm</button>
-                <button type="button" className="list-group-item list-group-item-action">Mustikan peittävyys</button>
-                <button type="button" className="list-group-item list-group-item-action">Jäkälien peittävyys</button>
-                <button type="button" className="list-group-item list-group-item-action">Käävät</button>
-              </div>
-              <br />
-              <div className="list-group">
-                <h4 className="title">Hiili</h4>
-                <button type="button" className="list-group-item list-group-item-action">Hiilen määrä</button>
-              </div>
-              <br />
-              <div className="list-group">
-                <h4 className="title">Muut</h4>
-                <button type="button" className="list-group-item list-group-item-action">Biomassa</button>
-              </div>
-            </div>
-
-*/
