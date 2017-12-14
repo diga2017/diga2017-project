@@ -3,13 +3,13 @@ const ReactHighcharts = require('react-highcharts');
 
 class Graphs extends Component {
     render() {
-        const { scenarios, timePeriods, indicatorCategories, values } = this.props;
+        const { scenarios, timePeriods, chosenIndicators, values } = this.props;
 
         let chosenTimePeriod = timePeriods;
-        let chosenIndicatorCategory = indicatorCategories[0];
+//        let chosenIndicatorCategory = indicatorCategories[0];
 
         let chosenScenarios = [scenarios]
-        let chosenIndicators = [chosenIndicatorCategory.indicators[0], chosenIndicatorCategory.indicators[1], chosenIndicatorCategory.indicators[2]];
+        let chosenIndicatorsArr = [chosenIndicators];
 
         let chosenValueSeries = [];
         let chosenScenarioNames = [];
@@ -20,9 +20,21 @@ class Graphs extends Component {
         if (typeof chosenTimePeriod == "undefined"){
             chosenTimePeriod = {
                 id: 20,
-                yearStart: 3000,
-                yearEnd: 3001
+                yearStart: 0,
+                yearEnd: 0
               };
+        }
+
+        console.log("indicators: " + JSON.stringify(chosenIndicators));
+        if (typeof chosenIndicatorsArr[0] == "undefined" || chosenIndicatorsArr[0] == [] || chosenIndicatorsArr[0] == null || chosenIndicatorsArr[0] == [null]) {
+            chosenIndicatorsArr = [{
+                  id: 120,
+                  name: "null",
+                  description: "null",
+                  absVar: 11,
+                  order: 1
+                }
+            ]
         }
 
         // These loops go through the choices given by the user and pushes all the values for the current settings to an array
@@ -31,7 +43,7 @@ class Graphs extends Component {
         chosenScenarios.forEach(scenario => {
             chosenScenarioNames.push(scenario.name);
             let chosenValues = [];
-            chosenIndicators.forEach(indicator => {
+            chosenIndicatorsArr.forEach(indicator => {
                 chosenIndicatorNames.push(indicator.name);
                 values.forEach(value => {
                     if (value.scenarioId === scenario.id) {

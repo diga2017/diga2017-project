@@ -2,18 +2,13 @@ import React, { Component } from 'react'
 import Indicators from './DropDownIndicators'
 
 class IndicatorCategoryHolder extends Component {
-
-    selectIndicators(event) {
-        this.props.selectIndicators(event.target.value);
-    }
-
     render() {
         return (
             <div>
-                <p> { this.props.name } </p>
+                <h3> { this.props.name }:</h3>
                 <Indicators
                   indicators={this.props.indicators}
-                  selectIndicators={this.selectIndicators} />
+                  selectIndicators={this.props.selectIndicators} />
             </div>
         )
     }

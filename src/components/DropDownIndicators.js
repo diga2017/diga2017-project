@@ -17,16 +17,15 @@ class Indicators extends Component {
   }
 
   handleOnClick(event) {
+    console.log("chosenIndicatorID: " + event.target.value);
     this.props.selectIndicators(event.target.value);
   }
-  
+
   render() {
     const { stayOpen, value } = this.state;
     const options = this.props.scenarios;
     return (
       <div className="section">
-
-        <h3>{this.props.indicators.name}:</h3>
         <div className="form-group">
           <select className="form-control" onChange={this.handleOnClick}>
             {this.props.indicators.map(element => (
