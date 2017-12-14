@@ -43,7 +43,7 @@ class IndicatorCategories extends Component {
                 })
             })
         } 
-        
+              
     }
 
 
