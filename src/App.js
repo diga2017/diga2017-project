@@ -29,7 +29,7 @@ class App extends Component {
       chosenRegion: [],
       chosenScenarios: [],
       collectionIndicatorCategories: [],
-      chosenIndicator: [],
+      chosenIndicators: [],
       timePeriods: [],
       scenarios: [],
       update: "",
@@ -46,6 +46,7 @@ class App extends Component {
     this.selectRegion = this.selectRegion.bind(this);
     this.selectScenarioCollections = this.selectScenarioCollections.bind(this);
     this.selectScenarios = this.selectScenarios.bind(this);
+    this.selectIndicators = this.selectIndicators.bind(this);
     this.selectTimePeriod = this.selectTimePeriod.bind(this);
     this.toggleLanguage = this.toggleLanguage.bind(this);
     this.getAllData = this.getAllData.bind(this);
@@ -122,7 +123,13 @@ class App extends Component {
     this.setState({
       update: indicatorId,
       selectedIndicatorIds: indicatorId,
-      chosenIndicator: this.state.collectionIndicatorCategories.indicators.find(element => element.id == indicatorId)
+    });
+    this.state.collectionIndicatorCategories.forEach(indicatorCategory => {
+      indicatorCategory.indicators.forEach(element => {
+        if( element.id == indicatorId) {
+          this.setState({chosenIndicators: element});
+        }
+      });
     });
   }
 
@@ -180,7 +187,7 @@ class App extends Component {
                   this.state.scenarioCollections.map(element => <Graphs key={element.id}
                     scenarios={this.state.chosenScenarios}
                     timePeriods={this.state.chosenTimePeriod}
-                    indicatorCategories={element.indicatorCategories}
+                    chosenIndicators={this.state.chosenIndicators}
                     values={element.values} />)
                 }
               </div>
@@ -230,7 +237,7 @@ class App extends Component {
                 this.state.collectionIndicatorCategories.map(element => <IndicatorCategories key={element.id}
                   name={element.name}
                   indicators={element.indicators}
-                  selectIndicators={element.selectIndicators} />)
+                  selectIndicators={this.selectIndicators} />)
               }
             </div>
             <div className="footer">
