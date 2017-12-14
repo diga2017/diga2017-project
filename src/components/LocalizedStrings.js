@@ -12,6 +12,12 @@ let localizedStrings = new LocalizedStrings({
     titleScenarios: "Scenarios",
     titleTimePeriod: "Time period",
     titleChoosingIndicators: "Choose indicators",
+
+    IndicatorCatagory1: "Timber production",
+    IndicatorCatagory2: "Collection products",
+    IndicatorCatagory3: "Diversity",
+    IndicatorCatagory4: "Carbon",
+    IndicatorCatagory5: "Other",
     sendFeedback: "Feedback",
     stayOpen: "Stay open after scenario choices",
   },
@@ -26,6 +32,12 @@ let localizedStrings = new LocalizedStrings({
     titleScenarios: "Skenaariot",
     titleTimePeriod: "Ajankohta",
     titleChoosingIndicators: "Indikaattorien valinta",
+
+    IndicatorCatagory1: "Puuntuotanto",
+    IndicatorCatagory2: "Keruutuotteet",
+    IndicatorCatagory3: "Monimuotoisuus",
+    IndicatorCatagory4: "Hiili",
+    IndicatorCatagory5: "Muut",
     sendFeedback: "Palaute",
     stayOpen: "Pysy avoinna kun skenaario valittu"
   }
