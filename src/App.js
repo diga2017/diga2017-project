@@ -41,6 +41,7 @@ class App extends Component {
       selectedScenarioIds: 0,
     };
 
+  
     this.selectRegionLevel = this.selectRegionLevel.bind(this);
     this.selectRegion = this.selectRegion.bind(this);
     this.selectScenarioCollections = this.selectScenarioCollections.bind(this);
@@ -200,7 +201,30 @@ class App extends Component {
 
 
             <div className="col-4 col-md-3">
-              <h3 className="title">{localizedStrings.titleChoosingIndicators}</h3>
+                <h3 className="title">{localizedStrings.titleChoosingIndicators}</h3>
+                <br/>
+                <div className="list-group">
+                    <h4 className="title">Puuntuotanto*</h4>
+                    <button type="button" className="list-group-item list-group-item-action">Kantohinta-arvo</button>
+                    <button type="button" className="list-group-item list-group-item-action">Nettotulojen nykyarvo</button>
+                    <button type="button" className="list-group-item list-group-item-action">Hakkuukertymä</button>
+                    <button type="button" className="list-group-item list-group-item-action">Tilavuus</button>
+                </div>
+              <br />
+                <div className="list-group">
+                    <h4 className="title">Keruutuotteet</h4>
+                    <button type="button" className="list-group-item list-group-item-action">Mustikkasato</button>
+                    <button type="button" className="list-group-item list-group-item-action">Puolukkasato</button>
+                </div>
+              <br />
+                <div className="list-group">
+                    <h4 className="title">Monimuotoisuus*</h4>
+                    <button type="button" className="list-group-item list-group-item-action">Lahopuun</button>
+                    <button type="button" className="list-group-item list-group-item-action">Putkilokasvien lkm</button>
+                    <button type="button" className="list-group-item list-group-item-action">Mustikan peittävyys</button>
+                    <button type="button" className="list-group-item list-group-item-action">Jäkälien peittävyys</button>
+                    <button type="button" className="list-group-item list-group-item-action">Käävät</button>
+                </div>
               <br />
               {
                 this.state.collectionIndicatorCategories.map(element => <IndicatorCategories key={element.id}
