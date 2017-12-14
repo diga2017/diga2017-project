@@ -25,7 +25,7 @@ let localizedStrings = new LocalizedStrings({
     titleScenarioCollection: "Skenaariokokoelma",
     titleScenarios: "Skenaariot",
     titleTimePeriod: "Ajankohta",
-    titleChoosingIndicators: "Indikaattorien valinta",
+    titleChoosingIndicators: "Indikaattoreriden valinta",
     sendFeedback: "Palaute",
     stayOpen: "Pysy avoinna kun skenaario valittu"
   }

@@ -5,10 +5,10 @@ class Graphs extends Component {
     render() {
         const { scenarios, timePeriods, indicatorCategories, values } = this.props;
 
-        let chosenTimePeriod = timePeriods[1];
+        let chosenTimePeriod = timePeriods;
         let chosenIndicatorCategory = indicatorCategories[0];
 
-        let chosenScenarios = [scenarios[0], scenarios[1], scenarios[2]];
+        let chosenScenarios = [scenarios]
         let chosenIndicators = [chosenIndicatorCategory.indicators[0], chosenIndicatorCategory.indicators[1], chosenIndicatorCategory.indicators[2]];
 
         let chosenValueSeries = [];
@@ -16,6 +16,14 @@ class Graphs extends Component {
         let chosenIndicatorNames = [];
 
         let series = [];
+
+        if (typeof chosenTimePeriod == "undefined"){
+            chosenTimePeriod = {
+                id: 20,
+                yearStart: 3000,
+                yearEnd: 3001
+              };
+        }
 
         // These loops go through the choices given by the user and pushes all the values for the current settings to an array
         // which is later looped through to create the displayable data series
