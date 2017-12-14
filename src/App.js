@@ -27,8 +27,10 @@ class App extends Component {
       regionLevelId: 1,
       regionId: 33,
       scenarioId: 6
-    };
+    
+    }
 
+  
     this.selectRegionLevel = this.selectRegionLevel.bind(this);
     this.selectRegion = this.selectRegion.bind(this);
     this.selectScenarioCollections = this.selectScenarioCollections.bind(this);
@@ -68,6 +70,7 @@ class App extends Component {
     });
   }
 
+
   selectRegionLevel(regionId) {
     Data.getRegions(regionId).then(result => {
       this.setState({ regions: result });
@@ -82,6 +85,8 @@ class App extends Component {
   selectScenarioCollections(){
 
   }
+
+  
   
 
   render() {
@@ -164,7 +169,7 @@ class App extends Component {
 
 
             <div className="col-4 col-md-3">
-                <h3 className="title">Indikaattoreiden valinta</h3>
+                <h3 className="title">{localizedStrings.titleChoosingIndicators}</h3>
                 <br/>
                 <div className="list-group">
                     <h4 className="title">Puuntuotanto*</h4>
