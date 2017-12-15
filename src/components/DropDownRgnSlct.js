@@ -30,6 +30,7 @@ class RegionLvlBtn extends Component {
             <h3>{localizedStrings.titleRegionLevel}:</h3>
             <div className="form-group">
               <select className="form-control" onChange={this.handleOnClick}>
+              <option value="" disabled selected>{localizedStrings.dropDownHolderRegionLevel}</option>
                 {this.props.regionLevels.map(element => (
                   <option value={element.id} key={element.id}>
                     {element.name}

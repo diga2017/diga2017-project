@@ -41,6 +41,7 @@ class Scenarios extends Component {
         <h3>{localizedStrings.titleScenarios}:</h3>
         <div className="form-group">
           <select className="form-control" onChange={this.handleOnClick}>
+            <option value="" disabled selected>{localizedStrings.dropDownHolderScenarios}</option>
             {this.props.scenarios.map(element => (
               <option value={element.id} key={element.id}>
                 {element.name}

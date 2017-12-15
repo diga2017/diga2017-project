@@ -22,6 +22,7 @@ class TimePeriod extends Component {
             <h3>{localizedStrings.titleTimePeriod}:</h3>
             <div className="form-group">
               <select className="form-control" onChange={this.handleOnClick}>
+              <option value="" disabled selected>{localizedStrings.dropDownHolderTimePeriod}</option>
                 {this.props.timePeriods.map(element => (
                   <option value={element.id} key={element.id}>
                     {element.yearStart + "-" + element.yearEnd}
