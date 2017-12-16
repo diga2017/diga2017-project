@@ -20,6 +20,12 @@ let localizedStrings = new LocalizedStrings({
     IndicatorCatagory5: "Other",
     sendFeedback: "Feedback",
     stayOpen: "Stay open after scenario choices",
+    dropDownHolderRegionLevel: "Choose region level",
+    dropDownHolderRegion: "Choose region",
+    dropDownHolderScenarioCollection: "Choose scenario collection", 
+    dropDownHolderScenarios: "Choose scenarios",
+    dropDownHolderTimePeriod: "Choose timeperiod",
+    dropDownHolderIndicator: "Choose indicators",
   },
   fi: {
     language: "Suomi",
@@ -33,7 +39,13 @@ let localizedStrings = new LocalizedStrings({
     titleTimePeriod: "Ajankohta",
     titleChoosingIndicators: "Indikaattoreiden valinta",
     sendFeedback: "Palaute",
-    stayOpen: "Pysy avoinna kun skenaario valittu"
+    stayOpen: "Pysy avoinna kun skenaario valittu",
+    dropDownHolderRegionLevel: "Valitse aluetaso",
+    dropDownHolderRegion: "Valitse alue",
+    dropDownHolderScenarioCollection: "Valitse skenaariokokoelma", 
+    dropDownHolderScenarios: "Valitse skenaario(t)",
+    dropDownHolderTimePeriod: "Valitse ajankohta",
+    dropDownHolderIndicator: "Valitse indikaattori(t)",
   }
 });
 

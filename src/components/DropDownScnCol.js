@@ -34,6 +34,7 @@ class scenarioColBtn extends Component {
         <h3>{localizedStrings.titleScenarioCollection}:</h3>
         <div className="form-group">
           <select className="form-control" onChange={this.handleOnClick}>
+          <option value="" disabled selected>{localizedStrings.dropDownHolderScenarioCollection}</option>
             {this.props.scenarioCollections.map(element => (
               <option value={element.id} key={element.id}>
                 {element.name}

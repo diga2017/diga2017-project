@@ -28,6 +28,7 @@ class Indicators extends Component {
       <div className="section">
         <div className="form-group">
           <select className="form-control" onChange={this.handleOnClick}>
+          <option value="" disabled selected>{localizedStrings.dropDownHolderIndicator}</option>
             {this.props.indicators.map(element => (
               <option value={element.id} key={element.id}>
                 {element.name}

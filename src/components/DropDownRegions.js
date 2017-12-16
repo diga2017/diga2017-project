@@ -29,6 +29,7 @@ class RegionBtn extends Component {
             <h3>{localizedStrings.titleRegion}:</h3>
             <div className="form-group">
               <select className="form-control" onChange={this.handleOnClick}>
+              <option value="" disabled selected>{localizedStrings.dropDownHolderRegion}</option>
                 {this.props.regions.map(element => (
                   <option value={element.id} key={element.id}>
                     {element.name}

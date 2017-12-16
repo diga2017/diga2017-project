@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 const ReactHighcharts = require('react-highcharts');
+const ReactHighchartsexporting = require('highcharts-exporting')
 
 class Graphs extends Component {
+    constructor(props) {
+        super(props);
+    
+        global.Highcharts = require('highcharts');
+        require('highcharts/modules/exporting')(global.Highcharts);
+        global.HighchartsMore = require('highcharts-more');
+        };
+
+
     render() {
         const { scenarios, timePeriods, chosenIndicators, values } = this.props;
+
 
         let chosenTimePeriod = timePeriods;
 //        let chosenIndicatorCategory = indicatorCategories[0];
