@@ -42,13 +42,13 @@ var Indicators = createClass({
     return (
       <div className="section">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-12">
             <Select
               closeOnSelect={!stayOpen}
               multi
               onChange={this.handleSelectChange}
               options={options}
-              placeholder={localizedStrings.titleChoosingIndicators}
+              placeholder={localizedStrings.dropDownHolderIndicator}
               simpleValue
               value={value}
             />

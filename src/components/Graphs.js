@@ -13,7 +13,7 @@ class Graphs extends Component {
 
 
     render() {
-        const { scenarios, selectedScenarioIds, timePeriods, indicators, selectedIndicatorIds, values } = this.props;
+        const { chosenRegion, chosenScenarioCollection, scenarios, selectedScenarioIds, timePeriods, indicators, selectedIndicatorIds, values } = this.props;
 
 
         let chosenTimePeriod = timePeriods;
@@ -75,6 +75,9 @@ class Graphs extends Component {
             chosenScenarioNames.push(scenario.name);
             let chosenValues = [];
             chosenIndicators.forEach(indicator => {
+                if (typeof indicator == 'undefined') {
+                    return;
+                }
                 chosenIndicatorNames.push(indicator.name);
                 values.forEach(value => {
                     if (value.scenarioId === scenario.id) {
@@ -111,7 +114,7 @@ class Graphs extends Component {
                 type: 'column'
             },
             title: {
-                text: chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
+                text: chosenRegion + ", " + chosenScenarioCollection + ", " + chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
             },
             subtitle: {
                 text: 'Source: http://melatupa.azurewebsites.net/'

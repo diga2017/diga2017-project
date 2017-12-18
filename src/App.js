@@ -13,6 +13,7 @@ import TimePeriod from "./components/DropDownTimePeriod";
 import IndicatorCategories from "./components/IndicatorCategoriesHolder";
 
 import Graphs from './components/Graphs'
+import Tables from './components/Tables'
 
 class App extends Component {
   constructor(props) {
@@ -208,6 +209,8 @@ class App extends Component {
               <div>
                 {
                   this.state.scenarioCollections.map(element => <Graphs key={element.id}
+                    chosenRegion={this.state.chosenRegion.name}
+                    chosenScenarioCollection={this.state.scenarioCollections[0].name}
                     scenarios={this.state.scenarios}
                     selectedScenarioIds={this.state.selectedScenarioIds}
                     timePeriods={this.state.chosenTimePeriod}
@@ -216,6 +219,21 @@ class App extends Component {
                     values={element.values} />)
                 }
               </div>
+
+              <div>
+                {
+                  this.state.scenarioCollections.map(element => <Tables key={element.id}
+                    chosenRegion={this.state.chosenRegion.name}
+                    chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                    scenarios={this.state.scenarios}
+                    selectedScenarioIds={this.state.selectedScenarioIds}
+                    timePeriods={this.state.chosenTimePeriod}
+                    indicators={this.state.indicators}
+                    selectedIndicatorIds={this.state.selectedIndicatorIds}
+                    values={element.values} />)
+                }
+              </div>
+
               <button type="button" className="btn btn-default  btn-lg" aria-label="Left Align">
                 <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
               </button>
