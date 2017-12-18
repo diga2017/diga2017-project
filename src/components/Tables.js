@@ -7,17 +7,57 @@ Heatmap(ReactHighchart.Highcharts)
 class Tables extends Component {
     render() {
 
-        const { scenarios, timePeriods, indicatorCategories, values } = this.props;
+        const { chosenRegion, chosenScenarioCollection, scenarios, selectedScenarioIds, timePeriods, indicators, selectedIndicatorIds, values } = this.props;
 
-        let chosenTimePeriod = timePeriods[0];
-        let chosenIndicatorCategory = indicatorCategories[0];
+        let chosenTimePeriod = timePeriods;
 
-        let chosenScenarios = [scenarios[0], scenarios[1], scenarios[2], scenarios[4]];
-        let chosenIndicators = [chosenIndicatorCategory.indicators[0], chosenIndicatorCategory.indicators[1], chosenIndicatorCategory.indicators[2], chosenIndicatorCategory.indicators[3]];
+        let chosenScenarios = [];
+        let chosenIndicators = [];
 
         let chosenValueSeries = [];
         let chosenScenarioNames = [];
         let chosenIndicatorNames = [];
+
+        if (typeof chosenTimePeriod == "undefined"){
+            chosenTimePeriod = {
+                id: 0,
+                yearStart: 0,
+                yearEnd: 0
+              };
+        }
+
+        // console.log("selectedScenarioIds: " + JSON.stringify(selectedScenarioIds));
+        selectedScenarioIds.forEach(scenarioId => {
+            chosenScenarios.push(scenarios.find(element => element.id == scenarioId))
+        });
+
+        // console.log("selectedIndicatorIds: " + JSON.stringify(selectedIndicatorIds));
+        // console.log("indicators: " + JSON.stringify(indicators));
+        selectedIndicatorIds.forEach(indicatorId => {
+            chosenIndicators.push(indicators.find(element => element.id == indicatorId))
+        });
+
+        // console.log("chosenIndicators: " + JSON.stringify(chosenIndicators));
+        if (typeof chosenIndicators == "undefined" || chosenIndicators[0] == null || chosenIndicators == null) {
+            chosenIndicators = [{
+                  id: 0,
+                  name: "No indicators chosen",
+                  description: "No indicators chosen",
+                  absVar: 0,
+                  order: 0
+                }
+            ]
+        }
+
+        if (typeof chosenScenarios == "undefined" || chosenScenarios[0] == null || chosenScenarios == null) {
+            chosenScenarios = [{
+                  id: 0,
+                  name: "No scenario chosen",
+                  description: "No scenario chosen",
+                  order: 1
+                }
+            ]
+        }
 
         // These loops go through the choices given by the user and pushes all the values for the current settings to an array
         // which is later looped through to create the displayable data series
@@ -79,7 +119,7 @@ class Tables extends Component {
                 plotBorderWidth: 1
             },
             title: {
-                text: chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
+                text: chosenRegion + ", " + chosenScenarioCollection + ", " + chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
             },
             subtitle: {
                 text: 'Source: http://melatupa.azurewebsites.net/'
