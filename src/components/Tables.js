@@ -10,7 +10,7 @@ class Tables extends Component {
         const { scenarios, timePeriods, indicatorCategories, values } = this.props;
 
         let chosenTimePeriod = timePeriods[0];
-        let chosenIndicatorCategory = indicatorCategories[0];
+        let chosenIndicatorCategory = indicatorCategories[1];
 
         let chosenScenarios = [scenarios[0], scenarios[1], scenarios[2], scenarios[4]];
         let chosenIndicators = [chosenIndicatorCategory.indicators[0], chosenIndicatorCategory.indicators[1], chosenIndicatorCategory.indicators[2], chosenIndicatorCategory.indicators[3]];
