@@ -4,6 +4,7 @@ import "./App.css";
 import Data from "./data/Data";
 import Config from "./Config"
 import localizedStrings from './components/LocalizedStrings'
+import SendBtn from './components/SendToMltpBtn'
 // Dropdown components
 import ScenarioColBtn from "./components/DropDownScnCol";
 import Scenarios from "./components/DropDownScns";
@@ -228,6 +229,7 @@ class App extends Component {
               <button type="button" className="btn btn-default btn-lg">
                 <span className="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
               </button>
+              <SendBtn/>
 
             </div>
 
