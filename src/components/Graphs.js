@@ -13,14 +13,13 @@ class Graphs extends Component {
 
 
     render() {
-        const { scenarios, timePeriods, chosenIndicators, values } = this.props;
+        const { chosenRegion, chosenScenarioCollection, scenarios, selectedScenarioIds, timePeriods, indicators, selectedIndicatorIds, values } = this.props;
 
 
         let chosenTimePeriod = timePeriods;
-//        let chosenIndicatorCategory = indicatorCategories[0];
 
-        let chosenScenarios = [scenarios]
-        let chosenIndicatorsArr = [chosenIndicators];
+        let chosenScenarios = [];
+        let chosenIndicators = [];
 
         let chosenValueSeries = [];
         let chosenScenarioNames = [];
@@ -30,19 +29,40 @@ class Graphs extends Component {
 
         if (typeof chosenTimePeriod == "undefined"){
             chosenTimePeriod = {
-                id: 20,
+                id: 0,
                 yearStart: 0,
                 yearEnd: 0
               };
         }
 
-        console.log("indicators: " + JSON.stringify(chosenIndicators));
-        if (typeof chosenIndicatorsArr[0] == "undefined" || chosenIndicatorsArr[0] == [] || chosenIndicatorsArr[0] == null || chosenIndicatorsArr[0] == [null]) {
-            chosenIndicatorsArr = [{
-                  id: 120,
-                  name: "null",
-                  description: "null",
-                  absVar: 11,
+        // console.log("selectedScenarioIds: " + JSON.stringify(selectedScenarioIds));
+        selectedScenarioIds.forEach(scenarioId => {
+            chosenScenarios.push(scenarios.find(element => element.id == scenarioId))
+        });
+
+        // console.log("selectedIndicatorIds: " + JSON.stringify(selectedIndicatorIds));
+        // console.log("indicators: " + JSON.stringify(indicators));
+        selectedIndicatorIds.forEach(indicatorId => {
+            chosenIndicators.push(indicators.find(element => element.id == indicatorId))
+        });
+
+        // console.log("chosenIndicators: " + JSON.stringify(chosenIndicators));
+        if (typeof chosenIndicators == "undefined" || chosenIndicators[0] == null || chosenIndicators == null) {
+            chosenIndicators = [{
+                  id: 0,
+                  name: "No indicators chosen",
+                  description: "No indicators chosen",
+                  absVar: 0,
+                  order: 0
+                }
+            ]
+        }
+
+        if (typeof chosenScenarios == "undefined" || chosenScenarios[0] == null || chosenScenarios == null) {
+            chosenScenarios = [{
+                  id: 0,
+                  name: "No scenario chosen",
+                  description: "No scenario chosen",
                   order: 1
                 }
             ]
@@ -54,7 +74,10 @@ class Graphs extends Component {
         chosenScenarios.forEach(scenario => {
             chosenScenarioNames.push(scenario.name);
             let chosenValues = [];
-            chosenIndicatorsArr.forEach(indicator => {
+            chosenIndicators.forEach(indicator => {
+                if (typeof indicator == 'undefined') {
+                    return;
+                }
                 chosenIndicatorNames.push(indicator.name);
                 values.forEach(value => {
                     if (value.scenarioId === scenario.id) {
@@ -84,14 +107,14 @@ class Graphs extends Component {
             i++;
         });
 
-        console.log(JSON.stringify(chosenValueSeries));
+        // console.log("chosenValueSeries" + JSON.stringify(chosenValueSeries));
 
         const config = {
             chart: {
                 type: 'column'
             },
             title: {
-                text: chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
+                text: chosenRegion + ", " + chosenScenarioCollection + ", " + chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
             },
             subtitle: {
                 text: 'Source: http://melatupa.azurewebsites.net/'

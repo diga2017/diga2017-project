@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Config from '../Config';
 
-function setHeaderLanguage(language) {
+function setHeaderLanguage(language){
     // console.log("setUserLanguage: " + language);
     axios.defaults.headers.get['Accept-Language'] = language;
 }
@@ -66,5 +66,7 @@ function getScenarioCollections(scenarioCollectionsId, regionId) {
             })
     });
 }
+
+
 
 export default { setHeaderLanguage, getRegionLevels, getRegions, getScenarioCollections };

@@ -13,6 +13,7 @@ import TimePeriod from "./components/DropDownTimePeriod";
 import IndicatorCategories from "./components/IndicatorCategoriesHolder";
 
 import Graphs from './components/Graphs'
+import Tables from './components/Tables'
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
       scenarioCollections: [],
       chosenRegionCollections: [],
       indicatorCategories: [],
+      indicators: [],
       chosenRegion: [],
       chosenScenarios: [],
       collectionIndicatorCategories: [],
@@ -36,8 +38,8 @@ class App extends Component {
       selectedRegionId: 0,
       selectedScenarioCollectionId: 0,
       selectedTimePeriodId: 0,
-      selectedIndicatorIds: 0,
-      selectedScenarioIds: 0,
+      selectedIndicatorIds: [],
+      selectedScenarioIds: [],
     };
 
 
@@ -88,7 +90,6 @@ class App extends Component {
         update: ""
       });
     });
-    this.forceUpdate();
   }
 
   selectRegion(regionId) {
@@ -98,11 +99,18 @@ class App extends Component {
       chosenRegion: this.state.regions.find(element => element.id == regionId),
       chosenRegionCollections: this.state.regions.find(element => element.id == regionId).scenarioCollections
     });
-    this.forceUpdate();
   }
 
   selectScenarioCollections(scenarioCollectionId) {
     Data.getScenarioCollections(scenarioCollectionId, this.state.selectedRegionId).then(result => {
+
+      result[0].indicatorCategories.forEach(indicatorCategory => {
+        indicatorCategory.indicators.forEach(element => {
+          console.log("indicators forloop: " + element)
+          this.setState({ indicators: this.state.indicators.concat(element) });
+        });
+      });
+
       this.setState({
         update: scenarioCollectionId,
         selectedScenarioCollectionId: scenarioCollectionId,
@@ -112,16 +120,20 @@ class App extends Component {
         collectionIndicatorCategories: result[0].indicatorCategories
       });
     });
-    this.forceUpdate();
   }
 
   selectScenarios(scenarioId) {
+    // console.log("selectScenario | scenarioId: " + scenarioId + " typeOf: " + typeof scenarioId)
+    let scenarioIdArr = [];
+    try {
+      scenarioIdArr = scenarioId.split(',');
+    } catch (err) {
+      console.log(err);
+    }
     this.setState({
       update: scenarioId,
-      selectedScenarioIds: scenarioId,
-      chosenScenarios: this.state.scenarios.find(element => element.id == scenarioId)
+      selectedScenarioIds: scenarioIdArr,
     });
-    this.forceUpdate();
   }
 
   selectTimePeriod(timePeriodId) {
@@ -130,22 +142,20 @@ class App extends Component {
       selectedTimePeriodId: timePeriodId,
       chosenTimePeriod: this.state.timePeriods.find(element => element.id == timePeriodId)
     });
-    this.forceUpdate();
   }
 
   selectIndicators(indicatorId) {
+    // console.log("selectIndicators | indicatorId: " + indicatorId + " typeOf: " + typeof indicatorId)
+    let indicatorIdArr = [];
+    try {
+      indicatorIdArr = indicatorId.split(',');
+    } catch (err) {
+      console.log(err);
+    }
     this.setState({
       update: indicatorId,
-      selectedIndicatorIds: indicatorId,
+      selectedIndicatorIds: indicatorIdArr,
     });
-    this.state.collectionIndicatorCategories.forEach(indicatorCategory => {
-      indicatorCategory.indicators.forEach(element => {
-        if (element.id == indicatorId) {
-          this.setState({ chosenIndicators: element });
-        }
-      });
-    });
-    this.forceUpdate();
   }
 
   render() {
@@ -203,12 +213,31 @@ class App extends Component {
               <div>
                 {
                   this.state.scenarioCollections.map(element => <Graphs key={element.id}
-                    scenarios={this.state.chosenScenarios}
+                    chosenRegion={this.state.chosenRegion.name}
+                    chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                    scenarios={this.state.scenarios}
+                    selectedScenarioIds={this.state.selectedScenarioIds}
                     timePeriods={this.state.chosenTimePeriod}
-                    chosenIndicators={this.state.chosenIndicators}
+                    indicators={this.state.indicators}
+                    selectedIndicatorIds={this.state.selectedIndicatorIds}
                     values={element.values} />)
                 }
               </div>
+
+              <div>
+                {
+                  this.state.scenarioCollections.map(element => <Tables key={element.id}
+                    chosenRegion={this.state.chosenRegion.name}
+                    chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                    scenarios={this.state.scenarios}
+                    selectedScenarioIds={this.state.selectedScenarioIds}
+                    timePeriods={this.state.chosenTimePeriod}
+                    indicators={this.state.indicators}
+                    selectedIndicatorIds={this.state.selectedIndicatorIds}
+                    values={element.values} />)
+                }
+              </div>
+
               <button type="button" className="btn btn-default  btn-lg" aria-label="Left Align">
                 <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
               </button>
