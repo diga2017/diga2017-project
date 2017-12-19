@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
+import 'jquery/dist/jquery.min.js';
 import "./App.css";
 import Data from "./data/Data";
 import Config from "./Config"
@@ -55,6 +58,45 @@ class App extends Component {
 
   componentDidMount() {
     this.getAllData();
+  }
+
+  iconClick(chart){
+
+     if(chart == "Bar"){
+      console.log("Bar");
+      ReactDOM.render(
+          <div>{
+            this.state.scenarioCollections.map(element => <Graphs key={element.id}
+                                                                  chosenRegion={this.state.chosenRegion.name}
+                                                                  chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                                                                  scenarios={this.state.scenarios}
+                                                                  selectedScenarioIds={this.state.selectedScenarioIds}
+                                                                  timePeriods={this.state.chosenTimePeriod}
+                                                                  indicators={this.state.indicators}
+                                                                  selectedIndicatorIds={this.state.selectedIndicatorIds}
+                                                                  values={element.values} />)
+          }
+          </div>,
+          document.getElementById('chart')
+      );
+    }else if(chart == "Table"){
+      console.log("Table");
+      ReactDOM.render(
+          <div>{
+            this.state.scenarioCollections.map(element => <Tables key={element.id}
+                                                                  chosenRegion={this.state.chosenRegion.name}
+                                                                  chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                                                                  scenarios={this.state.scenarios}
+                                                                  selectedScenarioIds={this.state.selectedScenarioIds}
+                                                                  timePeriods={this.state.chosenTimePeriod}
+                                                                  indicators={this.state.indicators}
+                                                                  selectedIndicatorIds={this.state.selectedIndicatorIds}
+                                                                  values={element.values} />)
+          }
+          </div>,
+          document.getElementById('chart')
+      );
+    }
   }
 
   toggleLanguage() {
@@ -163,7 +205,7 @@ class App extends Component {
 
       <div className="App">
 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark" >
           <div className="container">
             <a className="navbar-brand text-white">diga2017</a>
             <div className="form-inline my-2 my-lg-0">
@@ -206,47 +248,26 @@ class App extends Component {
             </div>
 
             <div className="col-12 col-md-6">
-              <div>
+              <div id="chart">
                 {
                   this.state.scenarioCollections.map(element => <Graphs key={element.id}
-                    chosenRegion={this.state.chosenRegion.name}
-                    chosenScenarioCollection={this.state.scenarioCollections[0].name}
-                    scenarios={this.state.scenarios}
-                    selectedScenarioIds={this.state.selectedScenarioIds}
-                    timePeriods={this.state.chosenTimePeriod}
-                    indicators={this.state.indicators}
-                    selectedIndicatorIds={this.state.selectedIndicatorIds}
-                    values={element.values} />)
+                                                                        chosenRegion={this.state.chosenRegion.name}
+                                                                        chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                                                                        scenarios={this.state.scenarios}
+                                                                        selectedScenarioIds={this.state.selectedScenarioIds}
+                                                                        timePeriods={this.state.chosenTimePeriod}
+                                                                        indicators={this.state.indicators}
+                                                                        selectedIndicatorIds={this.state.selectedIndicatorIds}
+                                                                        values={element.values} />)
                 }
               </div>
 
-              <div>
-                {
-                  this.state.scenarioCollections.map(element => <Tables key={element.id}
-                    chosenRegion={this.state.chosenRegion.name}
-                    chosenScenarioCollection={this.state.scenarioCollections[0].name}
-                    scenarios={this.state.scenarios}
-                    selectedScenarioIds={this.state.selectedScenarioIds}
-                    timePeriods={this.state.chosenTimePeriod}
-                    indicators={this.state.indicators}
-                    selectedIndicatorIds={this.state.selectedIndicatorIds}
-                    values={element.values} />)
-                }
-              </div>
-
-              <button type="button" className="btn btn-default  btn-lg" aria-label="Left Align">
-                <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+              <button onClick={this.iconClick.bind(this,"Bar")} type="button" className="btn btn-default btn-lg">
+                <span className="glyphicon glyphicon-stats" aria-hidden="true"></span>
               </button>
-              <button type="button" className="btn btn-default btn-lg">
-                <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <button onClick={this.iconClick.bind(this,"Table")} type="button" className="btn btn-default btn-lg">
+                <span className="glyphicon glyphicon-th-list" aria-hidden="true"></span>
               </button>
-              <button type="button" className="btn btn-default btn-lg">
-                <span className="glyphicon glyphicon-flash" aria-hidden="true"></span>
-              </button>
-              <button type="button" className="btn btn-default btn-lg">
-                <span className="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
-              </button>
-
             </div>
 
             <div className="col-4 col-md-3">
