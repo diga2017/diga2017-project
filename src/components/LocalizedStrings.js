@@ -12,12 +12,6 @@ let localizedStrings = new LocalizedStrings({
     titleScenarios: "Scenarios",
     titleTimePeriod: "Time period",
     titleChoosingIndicators: "Choose indicators",
-
-    IndicatorCatagory1: "Timber production",
-    IndicatorCatagory2: "Collection products",
-    IndicatorCatagory3: "Diversity",
-    IndicatorCatagory4: "Carbon",
-    IndicatorCatagory5: "Other",
     sendFeedback: "Feedback",
     stayOpen: "Stay open after scenario choices",
     dropDownHolderRegionLevel: "Choose region level",

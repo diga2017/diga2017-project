@@ -159,7 +159,7 @@ class App extends Component {
   }
 
   render() {
-    return (
+    return (   
 
       <div className="App">
 
@@ -178,12 +178,8 @@ class App extends Component {
           </div>
         </nav>
 
-        
-        
         <div className="container">
-         
           <h1 className="title">{localizedStrings.titleApplication} </h1>
-          
           <div className="row">
             <div className="col-md-3">
               <div className="grid ">
