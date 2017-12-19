@@ -28,7 +28,7 @@ var Indicators = createClass({
 
   render() {
     const { stayOpen, value } = this.state;
-    const options = []
+    const options = [];
 
     this.props.indicators.forEach(indicator => {
       let option = {
