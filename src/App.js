@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
+import 'jquery/dist/jquery.min.js';
 import "./App.css";
 import Data from "./data/Data";
 import Config from "./Config"
 import localizedStrings from './components/LocalizedStrings'
 // Dropdown components
-import ScenarioColBtn from "./components/DropDownScnCol";
+import DropDown from "./components/SingleDropDown";
 import Scenarios from "./components/DropDownScns";
-import RegionLvlBtn from "./components/DropDownRgnSlct";
-import RegionBtn from "./components/DropDownRegions";
 import TimePeriod from "./components/DropDownTimePeriod";
 import IndicatorCategories from "./components/IndicatorCategoriesHolder";
 
@@ -55,6 +56,45 @@ class App extends Component {
 
   componentDidMount() {
     this.getAllData();
+  }
+
+  iconClick(chart){
+
+     if(chart == "Bar"){
+      console.log("Bar");
+      ReactDOM.render(
+          <div>{
+            this.state.scenarioCollections.map(element => <Graphs key={element.id}
+                                                                  chosenRegion={this.state.chosenRegion.name}
+                                                                  chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                                                                  scenarios={this.state.scenarios}
+                                                                  selectedScenarioIds={this.state.selectedScenarioIds}
+                                                                  timePeriods={this.state.chosenTimePeriod}
+                                                                  indicators={this.state.indicators}
+                                                                  selectedIndicatorIds={this.state.selectedIndicatorIds}
+                                                                  values={element.values} />)
+          }
+          </div>,
+          document.getElementById('chart')
+      );
+    }else if(chart == "Table"){
+      console.log("Table");
+      ReactDOM.render(
+          <div>{
+            this.state.scenarioCollections.map(element => <Tables key={element.id}
+                                                                  chosenRegion={this.state.chosenRegion.name}
+                                                                  chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                                                                  scenarios={this.state.scenarios}
+                                                                  selectedScenarioIds={this.state.selectedScenarioIds}
+                                                                  timePeriods={this.state.chosenTimePeriod}
+                                                                  indicators={this.state.indicators}
+                                                                  selectedIndicatorIds={this.state.selectedIndicatorIds}
+                                                                  values={element.values} />)
+          }
+          </div>,
+          document.getElementById('chart')
+      );
+    }
   }
 
   toggleLanguage() {
@@ -159,13 +199,13 @@ class App extends Component {
   }
 
   render() {
-    return (
+    return (   
 
       <div className="App">
 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ padding: 2 }}>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark" >
           <div className="container">
-            <a className="navbar-brand text-white">diga2017</a>
+            <a className="navbar-brand text-white">{localizedStrings.titleApplication}</a>
             <div className="form-inline my-2 my-lg-0">
               <button className="btn btn-sm btn-info" onClick={this.toggleLanguage}>{localizedStrings.languageOnSwitch}
                 <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" width="25" height="25" alt="" />
@@ -179,21 +219,26 @@ class App extends Component {
         </nav>
 
         <div className="container">
-          <h1 className="title">{localizedStrings.titleApplication} </h1>
           <div className="row">
-            <div className="col-md-3">
-              <div className="grid ">
-                <RegionLvlBtn
-                  regionLevels={this.state.regionLevels}
-                  selectRegionLevel={this.selectRegionLevel}
+            <div className="col-md-2">
+              <div className="grid">
+                <DropDown
+                  title={localizedStrings.titleRegionLevel}
+                  placeHolder={localizedStrings.dropDownHolderRegionLevel}
+                  choices={this.state.regionLevels}
+                  selectOption={this.selectRegionLevel}
                 />
-                <RegionBtn
-                  regions={this.state.regions}
-                  selectRegion={this.selectRegion}
+                <DropDown
+                  title={localizedStrings.titleRegion}
+                  placeHolder={localizedStrings.dropDownHolderRegion}
+                  choices={this.state.regions}
+                  selectOption={this.selectRegion}
                 />
-                <ScenarioColBtn
-                  scenarioCollections={this.state.chosenRegionCollections}
-                  selectScenarioCollections={this.selectScenarioCollections}
+                <DropDown
+                  title={localizedStrings.titleScenarioCollection}
+                  placeHolder={localizedStrings.dropDownHolderScenarioCollection}
+                  choices={this.state.chosenRegionCollections}
+                  selectOption={this.selectScenarioCollections}
                 />
                 <Scenarios
                   scenarios={this.state.scenarios}
@@ -205,51 +250,30 @@ class App extends Component {
               </div>
             </div>
 
-            <div className="col-12 col-md-6">
-              <div>
+            <div className="col-12 col-md-8">
+              <div id="chart">
                 {
                   this.state.scenarioCollections.map(element => <Graphs key={element.id}
-                    chosenRegion={this.state.chosenRegion.name}
-                    chosenScenarioCollection={this.state.scenarioCollections[0].name}
-                    scenarios={this.state.scenarios}
-                    selectedScenarioIds={this.state.selectedScenarioIds}
-                    timePeriods={this.state.chosenTimePeriod}
-                    indicators={this.state.indicators}
-                    selectedIndicatorIds={this.state.selectedIndicatorIds}
-                    values={element.values} />)
+                                                                        chosenRegion={this.state.chosenRegion.name}
+                                                                        chosenScenarioCollection={this.state.scenarioCollections[0].name}
+                                                                        scenarios={this.state.scenarios}
+                                                                        selectedScenarioIds={this.state.selectedScenarioIds}
+                                                                        timePeriods={this.state.chosenTimePeriod}
+                                                                        indicators={this.state.indicators}
+                                                                        selectedIndicatorIds={this.state.selectedIndicatorIds}
+                                                                        values={element.values} />)
                 }
               </div>
 
-              <div>
-                {
-                  this.state.scenarioCollections.map(element => <Tables key={element.id}
-                    chosenRegion={this.state.chosenRegion.name}
-                    chosenScenarioCollection={this.state.scenarioCollections[0].name}
-                    scenarios={this.state.scenarios}
-                    selectedScenarioIds={this.state.selectedScenarioIds}
-                    timePeriods={this.state.chosenTimePeriod}
-                    indicators={this.state.indicators}
-                    selectedIndicatorIds={this.state.selectedIndicatorIds}
-                    values={element.values} />)
-                }
-              </div>
-
-              <button type="button" className="btn btn-default  btn-lg" aria-label="Left Align">
-                <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+              <button onClick={this.iconClick.bind(this,"Bar")} type="button" className="btn btn-default btn-lg">
+                <span className="glyphicon glyphicon-stats" aria-hidden="true"></span>
               </button>
-              <button type="button" className="btn btn-default btn-lg">
-                <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <button onClick={this.iconClick.bind(this,"Table")} type="button" className="btn btn-default btn-lg">
+                <span className="glyphicon glyphicon-th-list" aria-hidden="true"></span>
               </button>
-              <button type="button" className="btn btn-default btn-lg">
-                <span className="glyphicon glyphicon-flash" aria-hidden="true"></span>
-              </button>
-              <button type="button" className="btn btn-default btn-lg">
-                <span className="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
-              </button>
-
             </div>
 
-            <div className="col-4 col-md-3">
+            <div className="col-4 col-md-2">
               <h3 className="title">{localizedStrings.titleChoosingIndicators}</h3>
               <br />
               {

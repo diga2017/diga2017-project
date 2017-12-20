@@ -47,8 +47,9 @@ var Scenarios = createClass({
     return (
       <div className="section">
         <div className="row">
+        <div className="col-md-12">
           <h3>{localizedStrings.titleChoosingScenarios}: </h3>
-          <div className="col-md-12">
+          
             <Select
               closeOnSelect={!stayOpen}
               multi
