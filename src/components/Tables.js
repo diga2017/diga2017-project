@@ -121,11 +121,7 @@ class Tables extends Component {
             title: {
                 text: chosenRegion + ", " + chosenScenarioCollection + ", " + chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
             },
-            subtitle: {
-                text: 'Source: http://melatupa.azurewebsites.net/'
-            },
             xAxis: {
-                opposite: true,
                 categories: chosenScenarioNames,
                 title: "Chosen scenarios"
             },

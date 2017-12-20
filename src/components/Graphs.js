@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 const ReactHighcharts = require('react-highcharts');
-const ReactHighchartsexporting = require('highcharts-exporting')
 
 class Graphs extends Component {
     constructor(props) {
@@ -115,9 +114,6 @@ class Graphs extends Component {
             },
             title: {
                 text: chosenRegion + ", " + chosenScenarioCollection + ", " + chosenTimePeriod.yearStart + '-' + chosenTimePeriod.yearEnd
-            },
-            subtitle: {
-                text: 'Source: http://melatupa.azurewebsites.net/'
             },
             xAxis: {
                 categories: chosenIndicatorNames,
